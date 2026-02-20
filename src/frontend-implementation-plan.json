@@ -1,27 +1,83 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Replace app icon with new circular Rawly41 logo",
+  "title": "Restore missing scripts functionality",
   "requirements": [
     {
-      "id": "REQ-13",
-      "summary": "Replace all existing app icons with the newly uploaded circular Rawly41 logo featuring pink dripping text on turquoise swirl background with white border",
+      "id": "REQ-1",
+      "summary": "Restore the script listing functionality on the homepage so that all public scripts are displayed in the ScriptGrid component",
       "acceptanceCriteria": [
-        "All icon sizes (192x192, 512x512, 180x180 for Apple) use the new circular Rawly41 logo with white border",
-        "The manifest.json file references the updated icon files",
-        "The index.html Apple touch icon link points to the new icon",
-        "When installed as a PWA, the app displays the new circular logo on the home screen"
+        "Scripts are visible on the homepage in a grid layout",
+        "ScriptCard components display for each script with title, description, category, and author",
+        "Empty state shows when no scripts exist"
       ],
       "file_operations": [
         {
-          "path": "frontend/public/manifest.json",
+          "path": "frontend/src/pages/HomePage.tsx",
           "operation": "modify",
-          "description": "Update the icons array to reference the new generated icon files. Replace the existing icon references with frontend/public/assets/generated/icon-192.dim_192x192.png for the 192x192 icon and frontend/public/assets/generated/icon-512.dim_512x512.png for the 512x512 icon. Ensure the src paths use the correct relative paths from the manifest.json location (/assets/generated/icon-192.dim_192x192.png and /assets/generated/icon-512.dim_512x512.png)."
+          "description": "Verify that useGetAllScripts hook is properly integrated and that the scripts data is correctly passed to ScriptGrid. Ensure error states and loading states are handled appropriately. Check that the query is enabled and not blocked by any conditional logic."
         },
         {
-          "path": "frontend/index.html",
+          "path": "frontend/src/hooks/useQueries.ts",
           "operation": "modify",
-          "description": "Update the Apple touch icon link element to reference the new generated Apple icon file. Replace the existing href value with /assets/generated/apple-touch-icon.dim_180x180.png to point to the frontend/public/assets/generated/apple-touch-icon.dim_180x180.png file."
+          "description": "Review and fix the useGetAllScripts hook to ensure it correctly calls actor.getAllScripts() with proper error handling, retry logic, and enabled conditions. Verify the query key is consistent and the queryFn properly awaits the actor method."
+        },
+        {
+          "path": "frontend/src/components/ScriptGrid.tsx",
+          "operation": "modify",
+          "description": "Ensure ScriptGrid correctly receives and renders the scripts array prop. Verify the empty state message displays when scripts array is empty, and that the grid layout properly maps over scripts to render ScriptCard components."
+        }
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "summary": "Ensure the My Scripts page correctly displays scripts owned by the authenticated user with edit and delete functionality",
+      "acceptanceCriteria": [
+        "Authenticated users can view their own scripts on the My Scripts page",
+        "Edit and delete buttons are functional for user's own scripts",
+        "Page redirects unauthenticated users appropriately"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/MyScriptsPage.tsx",
+          "operation": "modify",
+          "description": "Fix the useGetScriptsByAuthor hook integration to properly fetch scripts for the authenticated user's principal. Ensure authentication guards redirect unauthenticated users. Verify edit and delete dialogs are wired correctly with their respective mutation hooks (useUpdateScript and useDeleteScript). Check that identity.getPrincipal() is correctly passed to the query."
+        },
+        {
+          "path": "frontend/src/hooks/useQueries.ts",
+          "operation": "modify",
+          "description": "Review useGetScriptsByAuthor to ensure it correctly accepts the author principal parameter and calls actor.getScriptsByAuthor(author). Verify the query is only enabled when both actor and author principal are available. Fix useUpdateScript and useDeleteScript mutations to properly invalidate the scripts queries on success."
+        }
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "summary": "Verify the script detail page loads and displays individual script content with syntax highlighting and metadata",
+      "acceptanceCriteria": [
+        "Clicking a script card navigates to its detail page",
+        "Full script code is displayed with syntax highlighting",
+        "Script metadata (author, category, dates) is visible"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/ScriptDetailPage.tsx",
+          "operation": "modify",
+          "description": "Fix the useGetScript hook to properly extract the script ID from route parameters and fetch the correct script. Ensure CodeBlock component receives the script content for syntax highlighting. Verify metadata display (author, category, dates) renders correctly from the fetched script data. Check that the delete functionality for owners is properly guarded."
+        },
+        {
+          "path": "frontend/src/hooks/useQueries.ts",
+          "operation": "modify",
+          "description": "Review useGetScript to ensure it correctly accepts the script ID parameter and calls actor.getScript(id). Verify the query is enabled only when both actor and ID are available. Check error handling for non-existent scripts."
+        },
+        {
+          "path": "frontend/src/components/ScriptCard.tsx",
+          "operation": "modify",
+          "description": "Ensure ScriptCard's Link component correctly navigates to the script detail page using the proper route path (/script/:id). Verify the script ID is properly passed in the to prop."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Verify that the script detail route is properly registered in the router configuration with the correct path pattern (/script/:id) and component mapping to ScriptDetailPage."
         }
       ]
     }

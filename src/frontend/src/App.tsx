@@ -6,6 +6,7 @@ import HomePage from './pages/HomePage';
 import ScriptDetailPage from './pages/ScriptDetailPage';
 import MyScriptsPage from './pages/MyScriptsPage';
 import ProfileSetupModal from './components/ProfileSetupModal';
+import OnboardingModal from './components/OnboardingModal';
 
 const rootRoute = createRootRoute({
   component: () => (
@@ -14,6 +15,7 @@ const rootRoute = createRootRoute({
         <Outlet />
       </Layout>
       <ProfileSetupModal />
+      <OnboardingModal />
     </>
   ),
 });

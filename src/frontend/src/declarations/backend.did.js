@@ -42,6 +42,7 @@ export const idlService = IDL.Service({
   'getAllScripts' : IDL.Func([], [IDL.Vec(Script)], ['query']),
   'getCallerUserProfile' : IDL.Func([], [IDL.Opt(UserProfile)], ['query']),
   'getCallerUserRole' : IDL.Func([], [UserRole], ['query']),
+  'getDeletedScripts' : IDL.Func([], [IDL.Vec(Script)], ['query']),
   'getScript' : IDL.Func([IDL.Text], [Script], ['query']),
   'getScriptsByAuthor' : IDL.Func(
       [IDL.Principal],
@@ -54,6 +55,8 @@ export const idlService = IDL.Service({
       ['query'],
     ),
   'isCallerAdmin' : IDL.Func([], [IDL.Bool], ['query']),
+  'permanentlyDeleteScript' : IDL.Func([IDL.Text], [], []),
+  'restoreScript' : IDL.Func([IDL.Text], [], []),
   'saveCallerUserProfile' : IDL.Func([UserProfile], [], []),
   'searchScriptsByTitle' : IDL.Func([IDL.Text], [IDL.Vec(Script)], ['query']),
   'updateScript' : IDL.Func(
@@ -100,6 +103,7 @@ export const idlFactory = ({ IDL }) => {
     'getAllScripts' : IDL.Func([], [IDL.Vec(Script)], ['query']),
     'getCallerUserProfile' : IDL.Func([], [IDL.Opt(UserProfile)], ['query']),
     'getCallerUserRole' : IDL.Func([], [UserRole], ['query']),
+    'getDeletedScripts' : IDL.Func([], [IDL.Vec(Script)], ['query']),
     'getScript' : IDL.Func([IDL.Text], [Script], ['query']),
     'getScriptsByAuthor' : IDL.Func(
         [IDL.Principal],
@@ -112,6 +116,8 @@ export const idlFactory = ({ IDL }) => {
         ['query'],
       ),
     'isCallerAdmin' : IDL.Func([], [IDL.Bool], ['query']),
+    'permanentlyDeleteScript' : IDL.Func([IDL.Text], [], []),
+    'restoreScript' : IDL.Func([IDL.Text], [], []),
     'saveCallerUserProfile' : IDL.Func([UserProfile], [], []),
     'searchScriptsByTitle' : IDL.Func([IDL.Text], [IDL.Vec(Script)], ['query']),
     'updateScript' : IDL.Func(

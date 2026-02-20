@@ -33,10 +33,13 @@ export interface _SERVICE {
   'getAllScripts' : ActorMethod<[], Array<Script>>,
   'getCallerUserProfile' : ActorMethod<[], [] | [UserProfile]>,
   'getCallerUserRole' : ActorMethod<[], UserRole>,
+  'getDeletedScripts' : ActorMethod<[], Array<Script>>,
   'getScript' : ActorMethod<[string], Script>,
   'getScriptsByAuthor' : ActorMethod<[Principal], Array<Script>>,
   'getUserProfile' : ActorMethod<[Principal], [] | [UserProfile]>,
   'isCallerAdmin' : ActorMethod<[], boolean>,
+  'permanentlyDeleteScript' : ActorMethod<[string], undefined>,
+  'restoreScript' : ActorMethod<[string], undefined>,
   'saveCallerUserProfile' : ActorMethod<[UserProfile], undefined>,
   'searchScriptsByTitle' : ActorMethod<[string], Array<Script>>,
   'updateScript' : ActorMethod<

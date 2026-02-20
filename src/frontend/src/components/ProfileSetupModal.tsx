@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useInternetIdentity } from '../hooks/useInternetIdentity';
 import { useGetCallerUserProfile, useSaveCallerUserProfile } from '../hooks/useQueries';
 import {
@@ -20,6 +20,7 @@ export default function ProfileSetupModal() {
   const saveProfile = useSaveCallerUserProfile();
   const [name, setName] = useState('');
 
+  // Only show modal for authenticated users without profiles
   const showProfileSetup = isAuthenticated && !profileLoading && isFetched && userProfile === null;
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -32,6 +33,11 @@ export default function ProfileSetupModal() {
       console.error('Failed to save profile:', error);
     }
   };
+
+  // Don't render anything for unauthenticated users
+  if (!isAuthenticated) {
+    return null;
+  }
 
   return (
     <Dialog open={showProfileSetup} onOpenChange={() => {}}>

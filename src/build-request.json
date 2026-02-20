@@ -1,43 +1,94 @@
 {
   "kind": "build_request",
-  "title": "Replace app icon with new circular Rawly41 logo",
+  "title": "Restore missing scripts functionality",
   "projectName": "Rawly41 Store",
-  "priority": "normal",
+  "priority": "high",
   "requirements": [
     {
-      "id": "REQ-13",
-      "text": "Replace all existing app icons (192x192, 512x512, and Apple touch icons) referenced in frontend/public/manifest.json and frontend/index.html with the newly uploaded circular Rawly41 logo featuring pink dripping text on turquoise swirl background with white border (Gemini_Generated_Image_z68096z68096z680-6.png)",
+      "id": "REQ-1",
+      "text": "Restore the script listing functionality on the homepage so that all public scripts are displayed in the ScriptGrid component",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-user-latest"
+          "msg-user-final"
         ],
         "quotes": [
-          "How I change it from this icon to this"
+          "Add my scripts back"
         ]
       },
       "acceptanceCriteria": [
-        "All icon sizes (192x192, 512x512, 180x180 for Apple) use the new circular Rawly41 logo with white border",
-        "The manifest.json file references the updated icon files",
-        "The index.html Apple touch icon link points to the new icon",
-        "When installed as a PWA, the app displays the new circular logo on the home screen"
+        "Scripts are visible on the homepage in a grid layout",
+        "ScriptCard components display for each script with title, description, category, and author",
+        "Empty state shows when no scripts exist"
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "text": "Ensure the My Scripts page correctly displays scripts owned by the authenticated user with edit and delete functionality",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-user-final"
+        ],
+        "quotes": [
+          "Add my scripts back"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Authenticated users can view their own scripts on the My Scripts page",
+        "Edit and delete buttons are functional for user's own scripts",
+        "Page redirects unauthenticated users appropriately"
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "text": "Verify the script detail page loads and displays individual script content with syntax highlighting and metadata",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-user-final"
+        ],
+        "quotes": [
+          "Add my scripts back"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Clicking a script card navigates to its detail page",
+        "Full script code is displayed with syntax highlighting",
+        "Script metadata (author, category, dates) is visible"
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "text": "Ensure the backend script CRUD operations are functioning correctly and returning data to the frontend queries",
+      "target": "backend",
+      "source": {
+        "messageIds": [
+          "msg-user-final"
+        ],
+        "quotes": [
+          "Add my scripts back"
+        ]
+      },
+      "acceptanceCriteria": [
+        "getAllScripts returns all public scripts",
+        "getScriptsByOwner returns scripts filtered by owner principal",
+        "getScript returns individual script details by ID"
       ]
     }
   ],
   "constraints": [
-    "Do not modify backend files",
-    "Maintain existing PWA configuration structure"
+    "Maintain existing authentication flow using Internet Identity",
+    "Preserve the single-actor backend architecture in backend/main.mo",
+    "Keep immutable frontend paths unchanged (hooks/useInternetIdentity.ts, hooks/useActor.ts, main.tsx, components/ui)"
   ],
   "nonGoals": [
-    "Changing the app name or branding colors",
-    "Modifying the manifest structure beyond icon references"
+    "Adding new script features beyond restoration",
+    "Changing the visual design or branding",
+    "Modifying the authentication system"
   ],
   "imageRequirements": {
-    "required": [
-      "Circular app icon with pink dripping 'Rawly41' text on turquoise swirl background with white border, sized for standard web app icon (icon-192.dim_192x192.png)",
-      "Circular app icon with pink dripping 'Rawly41' text on turquoise swirl background with white border, sized for large web app icon (icon-512.dim_512x512.png)",
-      "Circular app icon with pink dripping 'Rawly41' text on turquoise swirl background with white border, sized for Apple touch icon (apple-touch-icon.dim_180x180.png)"
-    ],
+    "required": [],
     "edits": []
   }
 }

@@ -1,11 +1,12 @@
 # Specification
 
 ## Summary
-**Goal:** Replace the existing app icon with the new circular Rawly41 logo featuring pink dripping text on a turquoise swirl background.
+**Goal:** Restore the missing scripts functionality so users can view, manage, and interact with scripts throughout the application.
 
 **Planned changes:**
-- Replace all app icon files (192x192, 512x512, and 180x180 Apple touch icon) with the new circular Rawly41 logo
-- Update manifest.json to reference the new icon files
-- Update index.html Apple touch icon link to point to the new icon
+- Fix the homepage to display all public scripts in the ScriptGrid component
+- Restore the My Scripts page to show authenticated user's scripts with edit and delete functionality
+- Ensure script detail pages load and display individual script content with syntax highlighting
+- Verify backend script CRUD operations are returning data correctly to frontend queries
 
-**User-visible outcome:** When the app is installed as a PWA or viewed on a device home screen, it displays the new circular Rawly41 logo with pink dripping text on a turquoise swirl background with white border.
+**User-visible outcome:** Users can browse all public scripts on the homepage, manage their own scripts on the My Scripts page, and view detailed script information on individual script pages.

@@ -47,10 +47,13 @@ export function useGetAllScripts() {
   return useQuery<Script[]>({
     queryKey: ['scripts', 'all'],
     queryFn: async () => {
-      if (!actor) return [];
-      return actor.getAllScripts();
+      if (!actor) throw new Error('Actor not available');
+      const scripts = await actor.getAllScripts();
+      return scripts;
     },
     enabled: !!actor && !isFetching,
+    staleTime: 30000, // Consider data fresh for 30 seconds
+    retry: 3,
   });
 }
 
@@ -64,6 +67,7 @@ export function useGetScript(id: string) {
       return actor.getScript(id);
     },
     enabled: !!actor && !isFetching && !!id,
+    retry: 2,
   });
 }
 
@@ -73,11 +77,12 @@ export function useSearchScriptsByTitle(title: string) {
   return useQuery<Script[]>({
     queryKey: ['scripts', 'search', title],
     queryFn: async () => {
-      if (!actor) return [];
+      if (!actor) throw new Error('Actor not available');
       if (!title.trim()) return [];
       return actor.searchScriptsByTitle(title);
     },
     enabled: !!actor && !isFetching && !!title.trim(),
+    staleTime: 10000,
   });
 }
 
@@ -87,11 +92,12 @@ export function useFilterScriptsByCategory(category: string) {
   return useQuery<Script[]>({
     queryKey: ['scripts', 'category', category],
     queryFn: async () => {
-      if (!actor) return [];
+      if (!actor) throw new Error('Actor not available');
       if (!category) return [];
       return actor.filterScriptsByCategory(category);
     },
     enabled: !!actor && !isFetching && !!category,
+    staleTime: 10000,
   });
 }
 
@@ -101,10 +107,12 @@ export function useGetScriptsByAuthor(author: Principal | undefined) {
   return useQuery<Script[]>({
     queryKey: ['scripts', 'author', author?.toString()],
     queryFn: async () => {
-      if (!actor || !author) return [];
+      if (!actor) throw new Error('Actor not available');
+      if (!author) throw new Error('Author principal not available');
       return actor.getScriptsByAuthor(author);
     },
     enabled: !!actor && !isFetching && !!author,
+    retry: 2,
   });
 }
 

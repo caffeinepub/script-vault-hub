@@ -5,7 +5,7 @@ import CodeBlock from '../components/CodeBlock';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
-import { ArrowLeft, Calendar, User, Edit, Trash2, Loader2 } from 'lucide-react';
+import { ArrowLeft, Calendar, User, Trash2, Loader2 } from 'lucide-react';
 import { toast } from 'sonner';
 import {
   AlertDialog,
@@ -26,6 +26,7 @@ export default function ScriptDetailPage() {
   const { data: script, isLoading, error } = useGetScript(id);
   const deleteScript = useDeleteScript();
 
+  const isAuthenticated = !!identity;
   const isAuthor = identity && script && script.author.toString() === identity.getPrincipal().toString();
 
   const handleDelete = async () => {
@@ -89,7 +90,7 @@ export default function ScriptDetailPage() {
             </div>
             <p className="text-muted-foreground text-lg">{script.description}</p>
           </div>
-          {isAuthor && (
+          {isAuthenticated && isAuthor && (
             <div className="flex gap-2">
               <AlertDialog>
                 <AlertDialogTrigger asChild>

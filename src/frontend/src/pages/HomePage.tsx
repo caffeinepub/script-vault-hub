@@ -5,16 +5,16 @@ import ScriptGrid from '../components/ScriptGrid';
 import ScriptSearch from '../components/ScriptSearch';
 import ScriptSubmissionForm from '../components/ScriptSubmissionForm';
 import { Button } from '@/components/ui/button';
-import { Plus, Code2 } from 'lucide-react';
+import { Plus, Code2, LogIn } from 'lucide-react';
 
 export default function HomePage() {
-  const { identity } = useInternetIdentity();
+  const { identity, login, loginStatus } = useInternetIdentity();
   const isAuthenticated = !!identity;
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [showSubmitForm, setShowSubmitForm] = useState(false);
 
-  const { data: allScripts = [], isLoading: allLoading } = useGetAllScripts();
+  const { data: allScripts = [], isLoading: allLoading, error: allError } = useGetAllScripts();
   const { data: searchResults = [], isLoading: searchLoading } = useSearchScriptsByTitle(searchQuery);
   const { data: filteredResults = [], isLoading: filterLoading } = useFilterScriptsByCategory(
     selectedCategory !== 'all' ? selectedCategory : ''
@@ -37,6 +37,14 @@ export default function HomePage() {
     return Array.from(cats).sort();
   }, [allScripts]);
 
+  const handleLoginPrompt = async () => {
+    try {
+      await login();
+    } catch (error) {
+      console.error('Login error:', error);
+    }
+  };
+
   return (
     <div className="container mx-auto px-4 py-8">
       {/* Hero Section */}
@@ -58,7 +66,7 @@ export default function HomePage() {
         </div>
       </div>
 
-      {/* Submit Form */}
+      {/* Submit Form - Only for authenticated users */}
       {showSubmitForm && isAuthenticated && (
         <div className="mb-8">
           <ScriptSubmissionForm onClose={() => setShowSubmitForm(false)} />
@@ -83,9 +91,15 @@ export default function HomePage() {
           </Button>
         )}
         {!isAuthenticated && (
-          <div className="text-sm text-muted-foreground">
-            Login to submit your own scripts
-          </div>
+          <Button 
+            onClick={handleLoginPrompt} 
+            variant="outline" 
+            className="gap-2 border-accent/50 hover:bg-accent/10"
+            disabled={loginStatus === 'logging-in'}
+          >
+            <LogIn className="h-4 w-4" />
+            {loginStatus === 'logging-in' ? 'Logging in...' : 'Login to Submit Scripts'}
+          </Button>
         )}
       </div>
 
@@ -97,6 +111,13 @@ export default function HomePage() {
           categories={categories}
         />
       </div>
+
+      {/* Error State */}
+      {allError && !isLoading && (
+        <div className="text-center py-8 text-destructive">
+          <p>Error loading scripts. Please try refreshing the page.</p>
+        </div>
+      )}
 
       {/* Scripts Grid */}
       <ScriptGrid scripts={displayScripts} isLoading={isLoading} />

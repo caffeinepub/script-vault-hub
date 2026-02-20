@@ -1,89 +1,34 @@
 {
   "schemaVersion": "1.0.0",
-  "projectStateVersion": 11,
-  "summary": "Create an app based on the website at https://gigantic-script-vault-hub.base44.app/",
+  "projectStateVersion": 3,
+  "summary": "New project",
   "architectural_notes": [],
-  "known_issues": [],
-  "isFixRequest": false,
-  "imageRequirements": "## Required Images\n- Circular app icon with pink dripping 'Rawly41' text on turquoise swirl background with white border, sized for standard web app icon (icon-192.dim_192x192.png)\n- Circular app icon with pink dripping 'Rawly41' text on turquoise swirl background with white border, sized for large web app icon (icon-512.dim_512x512.png)\n- Circular app icon with pink dripping 'Rawly41' text on turquoise swirl background with white border, sized for Apple touch icon (apple-touch-icon.dim_180x180.png)",
+  "known_issues": [
+    "Scripts are missing from the current build"
+  ],
+  "isFixRequest": true,
   "existing_features": [
     {
-      "id": "feature-create-a-homepage-layout-that-displays-a-collection-of-scripts-in-a-grid-or-card-format-allowing-users-to-browse-available-scripts",
-      "title": "Create a homepage layout that displays a collection of scripts in a grid or card format, allowing users to browse available scripts",
+      "id": "feature-restore-the-script-listing-functionality-on-the-homepage-so-that-all-public-scripts-are-displayed-in-the-scriptgrid-component",
+      "title": "Restore the script listing functionality on the homepage so that all public scripts are displayed in the ScriptGrid component",
       "reqIds": [
         "REQ-1"
       ],
       "version": 1
     },
     {
-      "id": "feature-add-script-search-and-filtering-functionality-to-help-users-find-specific-scripts-by-keyword-or-category",
-      "title": "Add script search and filtering functionality to help users find specific scripts by keyword or category",
+      "id": "feature-ensure-the-my-scripts-page-correctly-displays-scripts-owned-by-the-authenticated-user-with-edit-and-delete-functionality",
+      "title": "Ensure the My Scripts page correctly displays scripts owned by the authenticated user with edit and delete functionality",
+      "reqIds": [
+        "REQ-2"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-verify-the-script-detail-page-loads-and-displays-individual-script-content-with-syntax-highlighting-and-metadata",
+      "title": "Verify the script detail page loads and displays individual script content with syntax highlighting and metadata",
       "reqIds": [
         "REQ-3"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-create-script-detail-view-that-displays-full-script-content-with-syntax-highlighting-and-copy-functionality",
-      "title": "Create script detail view that displays full script content with syntax highlighting and copy functionality",
-      "reqIds": [
-        "REQ-4"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-implement-user-authentication-using-internet-identity-to-enable-script-submission-and-management",
-      "title": "Implement user authentication using Internet Identity to enable script submission and management",
-      "reqIds": [
-        "REQ-5"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-add-a-distinctive-visual-theme-inspired-by-developer-tools-and-code-repositories-using-a-modern-dark-theme-with-accent-colors-not-blue-purple-monospace-typography-for-code-and-clean-card-based-layouts",
-      "title": "Add a distinctive visual theme inspired by developer tools and code repositories, using a modern dark theme with accent colors (not blue/purple), monospace typography for code, and clean card-based layouts",
-      "reqIds": [
-        "REQ-6"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-update-the-application-name-from-script-vault-hub-to-rawly41-store-in-all-visible-locations-including-the-html-title-tag-header-logo-text-and-any-other-user-facing-references",
-      "title": "Update the application name from 'Script Vault Hub' to 'Rawly41 Store' in all visible locations including the HTML title tag, header logo text, and any other user-facing references",
-      "reqIds": [
-        "REQ-7"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-replace-the-current-logo-profile-picture-with-the-uploaded-custom-image-gemini-generated-image-z68096z68096z680-png-showing-pink-dripping-rawly41-text-on-a-turquoise-swirl-background",
-      "title": "Replace the current logo/profile picture with the uploaded custom image (Gemini_Generated_Image_z68096z68096z680.png) showing pink dripping 'Rawly41' text on a turquoise swirl background",
-      "reqIds": [
-        "REQ-8"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-create-a-web-app-manifest-file-manifest-json-in-the-frontend-public-directory-with-proper-pwa-configuration-including-app-name-rawly41-store-short-name-description-display-mode-standalone-theme-color-matching-the-turquoise-brand-color-and-background-color",
-      "title": "Create a web app manifest file (manifest.json) in the frontend/public directory with proper PWA configuration including app name 'Rawly41 Store', short_name, description, display mode 'standalone', theme color matching the turquoise brand color, and background color",
-      "reqIds": [
-        "REQ-9"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-generate-app-icons-in-multiple-sizes-192x192-512x512-180x180-for-apple-using-the-uploaded-rawly41-logo-with-pink-dripping-text-on-turquoise-swirl-background-and-configure-the-manifest-to-reference-these-icons-with-proper-sizes-and-types",
-      "title": "Generate app icons in multiple sizes (192x192, 512x512, 180x180 for Apple) using the uploaded Rawly41 logo with pink dripping text on turquoise swirl background, and configure the manifest to reference these icons with proper sizes and types",
-      "reqIds": [
-        "REQ-10"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-update-frontend-index-html-to-include-manifest-link-tag-apple-touch-icon-meta-tag-theme-color-meta-tag-and-apple-mobile-web-app-capable-meta-tag-for-proper-pwa-and-ios-home-screen-support",
-      "title": "Update frontend/index.html to include manifest link tag, Apple touch icon meta tag, theme-color meta tag, and apple-mobile-web-app-capable meta tag for proper PWA and iOS home screen support",
-      "reqIds": [
-        "REQ-11"
       ],
       "version": 1
     }
@@ -91,31 +36,15 @@
   "new_feature_requests": [
     {
       "id": "AR-1",
-      "summary": "Replicate functionality and design from gigantic-script-vault-hub.base44.app website",
+      "summary": "Add scripts back to the app",
       "reqIds": [],
       "status": "pending"
     },
     {
-      "id": "AR-3",
-      "summary": "Implement backend data model to store and retrieve script information including title, description, category, content, and metadata",
-      "reqIds": [
-        "REQ-2"
-      ],
-      "status": "pending"
-    },
-    {
-      "id": "AR-4",
-      "summary": "Replace all existing app icons (192x192, 512x512, and Apple touch icons) with the newly uploaded circular Rawly41 logo featuring pink dripping text on turquoise swirl background with white border (Gemini_Generated_Image_z68096z68096z680-5.png)",
-      "reqIds": [
-        "REQ-12"
-      ],
-      "status": "pending"
-    },
-    {
       "id": "AR-5",
-      "summary": "Replace all existing app icons (192x192, 512x512, and Apple touch icons) referenced in frontend/public/manifest.json and frontend/index.html with the newly uploaded circular Rawly41 logo featuring pink dripping text on turquoise swirl background with white border (Gemini_Generated_Image_z68096z68096z680-6.png)",
+      "summary": "Ensure the backend script CRUD operations are functioning correctly and returning data to the frontend queries",
       "reqIds": [
-        "REQ-13"
+        "REQ-4"
       ],
       "status": "pending"
     }

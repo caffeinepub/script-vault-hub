@@ -33,10 +33,13 @@ export interface backendInterface {
     getAllScripts(): Promise<Array<Script>>;
     getCallerUserProfile(): Promise<UserProfile | null>;
     getCallerUserRole(): Promise<UserRole>;
+    getDeletedScripts(): Promise<Array<Script>>;
     getScript(id: string): Promise<Script>;
     getScriptsByAuthor(author: Principal): Promise<Array<Script>>;
     getUserProfile(user: Principal): Promise<UserProfile | null>;
     isCallerAdmin(): Promise<boolean>;
+    permanentlyDeleteScript(id: string): Promise<void>;
+    restoreScript(id: string): Promise<void>;
     saveCallerUserProfile(profile: UserProfile): Promise<void>;
     searchScriptsByTitle(title: string): Promise<Array<Script>>;
     updateScript(id: string, title: string, description: string, category: string, content: string): Promise<void>;

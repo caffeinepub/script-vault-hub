@@ -116,10 +116,13 @@ export interface backendInterface {
     getAllScripts(): Promise<Array<Script>>;
     getCallerUserProfile(): Promise<UserProfile | null>;
     getCallerUserRole(): Promise<UserRole>;
+    getDeletedScripts(): Promise<Array<Script>>;
     getScript(id: string): Promise<Script>;
     getScriptsByAuthor(author: Principal): Promise<Array<Script>>;
     getUserProfile(user: Principal): Promise<UserProfile | null>;
     isCallerAdmin(): Promise<boolean>;
+    permanentlyDeleteScript(id: string): Promise<void>;
+    restoreScript(id: string): Promise<void>;
     saveCallerUserProfile(profile: UserProfile): Promise<void>;
     searchScriptsByTitle(title: string): Promise<Array<Script>>;
     updateScript(id: string, title: string, description: string, category: string, content: string): Promise<void>;
@@ -239,6 +242,20 @@ export class Backend implements backendInterface {
             return from_candid_UserRole_n4(this._uploadFile, this._downloadFile, result);
         }
     }
+    async getDeletedScripts(): Promise<Array<Script>> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.getDeletedScripts();
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.getDeletedScripts();
+            return result;
+        }
+    }
     async getScript(arg0: string): Promise<Script> {
         if (this.processError) {
             try {
@@ -292,6 +309,34 @@ export class Backend implements backendInterface {
             }
         } else {
             const result = await this.actor.isCallerAdmin();
+            return result;
+        }
+    }
+    async permanentlyDeleteScript(arg0: string): Promise<void> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.permanentlyDeleteScript(arg0);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.permanentlyDeleteScript(arg0);
+            return result;
+        }
+    }
+    async restoreScript(arg0: string): Promise<void> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.restoreScript(arg0);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.restoreScript(arg0);
             return result;
         }
     }

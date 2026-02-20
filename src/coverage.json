@@ -1,34 +1,76 @@
 {
   "kind": "coverage_report",
   "version": "1.0",
-  "generatedAt": "2026-02-20T01:00:03.725Z",
+  "generatedAt": "2026-02-20T21:56:01.843Z",
   "sources": {
     "buildRequest": true,
     "implementationPlan": true
   },
   "requirements": {
-    "total": 1,
-    "implemented": 0,
+    "total": 4,
+    "implemented": 3,
     "items": [
       {
-        "id": "REQ-13",
-        "summary": "Replace all existing app icons (192x192, 512x512, and Apple touch icons) referenced in frontend/public/manifest.json and frontend/index.html with the newly uploaded circular Rawly41 logo featuring pink dripping text on turquoise swirl background with white border (Gemini_Generated_Image_z68096z68096z680-6.png)",
-        "status": "missing",
+        "id": "REQ-1",
+        "summary": "Restore the script listing functionality on the homepage so that all public scripts are displayed in the ScriptGrid component",
+        "status": "implemented",
         "plannedFiles": [
-          "frontend/public/manifest.json",
-          "frontend/index.html"
+          "frontend/src/pages/HomePage.tsx",
+          "frontend/src/hooks/useQueries.ts",
+          "frontend/src/components/ScriptGrid.tsx"
         ],
+        "matchedFiles": [
+          "frontend/src/pages/HomePage.tsx",
+          "frontend/src/hooks/useQueries.ts",
+          "frontend/src/components/ScriptGrid.tsx"
+        ]
+      },
+      {
+        "id": "REQ-2",
+        "summary": "Ensure the My Scripts page correctly displays scripts owned by the authenticated user with edit and delete functionality",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/pages/MyScriptsPage.tsx",
+          "frontend/src/hooks/useQueries.ts"
+        ],
+        "matchedFiles": [
+          "frontend/src/pages/MyScriptsPage.tsx",
+          "frontend/src/hooks/useQueries.ts"
+        ]
+      },
+      {
+        "id": "REQ-3",
+        "summary": "Verify the script detail page loads and displays individual script content with syntax highlighting and metadata",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/pages/ScriptDetailPage.tsx",
+          "frontend/src/hooks/useQueries.ts",
+          "frontend/src/components/ScriptCard.tsx",
+          "frontend/src/App.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/hooks/useQueries.ts"
+        ]
+      },
+      {
+        "id": "REQ-4",
+        "summary": "Ensure the backend script CRUD operations are functioning correctly and returning data to the frontend queries",
+        "status": "unknown",
+        "plannedFiles": [],
         "matchedFiles": []
       }
     ]
   },
   "changedFiles": [
+    "backend/main.mo",
     "build-request.json",
     "feature_evidence.json",
+    "frontend-file-summaries.txt",
     "frontend-implementation-plan.json",
-    "frontend/public/assets/generated/apple-touch-icon.dim_180x180.png",
-    "frontend/public/assets/generated/icon-192.dim_192x192.png",
-    "frontend/public/assets/generated/icon-512.dim_512x512.png",
+    "frontend/src/components/ScriptGrid.tsx",
+    "frontend/src/hooks/useQueries.ts",
+    "frontend/src/pages/HomePage.tsx",
+    "frontend/src/pages/MyScriptsPage.tsx",
     "project_state.json",
     "scratch/component-selection.json",
     "spec.md",
