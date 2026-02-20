@@ -1,0 +1,18 @@
+{
+  "frontend/src/App.tsx": "Main application component with TanStack Router setup, defining routes for home, script detail, and my scripts pages, wrapped with ThemeProvider and ProfileSetupModal.",
+  "frontend/src/components/Layout.tsx": "Application layout component with header containing logo and navigation, main content area, and footer with attribution and copyright.",
+  "frontend/src/components/LoginButton.tsx": "Authentication button component that handles Internet Identity login/logout with loading states and proper error handling.",
+  "frontend/src/components/ProfileSetupModal.tsx": "Modal dialog that prompts first-time users to enter their name after authentication, with proper loading state management to prevent flash.",
+  "frontend/src/components/ScriptCard.tsx": "Reusable card component displaying script information (title, description, category, author, date) with hover effects and navigation to detail page.",
+  "frontend/src/components/ScriptGrid.tsx": "Grid layout component that renders a collection of ScriptCard components with loading and empty states.",
+  "frontend/src/components/ScriptSearch.tsx": "Search and filter component with debounced text input for title search and category dropdown filter.",
+  "frontend/src/components/ScriptSubmissionForm.tsx": "Form component for authenticated users to submit new scripts with validation and error handling.",
+  "frontend/src/components/CodeBlock.tsx": "Code display component with syntax highlighting styling and copy-to-clipboard functionality.",
+  "frontend/src/components/AuthGuard.tsx": "Route protection component that redirects unauthenticated users and shows loading state during authentication check.",
+  "frontend/src/pages/HomePage.tsx": "Main landing page displaying hero banner, script submission form, search/filter controls, and grid of all scripts.",
+  "frontend/src/pages/ScriptDetailPage.tsx": "Detailed view of a single script showing full content, metadata, and edit/delete actions for script authors.",
+  "frontend/src/pages/MyScriptsPage.tsx": "Protected page displaying user's submitted scripts with inline edit and delete functionality, now properly handling optional identity without non-null assertions.",
+  "frontend/src/hooks/useQueries.ts": "React Query hooks for all backend operations including user profiles, script CRUD operations, search, and filtering, with updated useGetScriptsByAuthor to accept optional Principal parameter.",
+  "frontend/src/index.css": "Global styles with OKLCH color system using green accent (142° hue) for developer-focused dark theme.",
+  "frontend/tailwind.config.js": "Tailwind configuration with custom color palette, monospace fonts (JetBrains Mono, Fira Code), and extended design tokens."
+}

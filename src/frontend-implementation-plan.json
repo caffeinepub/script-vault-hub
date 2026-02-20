@@ -1,0 +1,207 @@
+{
+  "kind": "implementation_plan",
+  "version": "1.0",
+  "title": "Script Vault Hub Frontend Implementation",
+  "requirements": [
+    {
+      "id": "REQ-1",
+      "summary": "Create a homepage layout that displays a collection of scripts in a grid or card format, allowing users to browse available scripts",
+      "acceptanceCriteria": [
+        "Scripts are displayed in a responsive grid layout",
+        "Each script card shows key information (title, description, category)",
+        "Layout adapts to different screen sizes"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/ScriptCard.tsx",
+          "operation": "create",
+          "description": "Create a reusable ScriptCard component that displays script title, description, category, and author information. Use shadcn/ui Card components for consistent styling. Make the card clickable to navigate to the detail view."
+        },
+        {
+          "path": "frontend/src/components/ScriptGrid.tsx",
+          "operation": "create",
+          "description": "Create a ScriptGrid component that renders scripts in a responsive grid layout using CSS Grid or Tailwind grid utilities. Accepts an array of scripts as props and maps them to ScriptCard components. Include loading states and empty states."
+        },
+        {
+          "path": "frontend/src/pages/HomePage.tsx",
+          "operation": "create",
+          "description": "Create the main HomePage component that fetches all scripts using getAllScripts backend method and displays them using the ScriptGrid component. Include the generated hero banner image at frontend/public/assets/generated/hero-banner.dim_1200x400.png as a header element. Add error handling and loading states."
+        },
+        {
+          "path": "frontend/src/hooks/useScripts.ts",
+          "operation": "create",
+          "description": "Create a React Query hook to fetch all scripts from the backend using the getAllScripts method. Include proper caching, loading, and error states. Use the authorization component's actor hook to ensure authenticated requests."
+        }
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "summary": "Add script search and filtering functionality to help users find specific scripts by keyword or category",
+      "acceptanceCriteria": [
+        "Users can search scripts by keyword",
+        "Users can filter scripts by category",
+        "Search results update dynamically"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/ScriptSearch.tsx",
+          "operation": "create",
+          "description": "Create a search and filter component with input fields for keyword search and category filtering. Use shadcn/ui Input and Select components. Implement debounced search to avoid excessive backend calls. Wire this component into the HomePage."
+        },
+        {
+          "path": "frontend/src/hooks/useScriptSearch.ts",
+          "operation": "create",
+          "description": "Create a React Query hook that calls searchScriptsByTitle backend method with the search term. Handle empty search gracefully and include loading states."
+        },
+        {
+          "path": "frontend/src/hooks/useScriptFilter.ts",
+          "operation": "create",
+          "description": "Create a React Query hook that calls filterScriptsByCategory backend method with the selected category. Include proper caching and loading states."
+        },
+        {
+          "path": "frontend/src/pages/HomePage.tsx",
+          "operation": "modify",
+          "description": "Integrate the ScriptSearch component into the HomePage. Conditionally render search results or filtered results based on user input. Manage state to switch between showing all scripts, search results, or filtered results."
+        }
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "summary": "Create script detail view that displays full script content with syntax highlighting and copy functionality",
+      "acceptanceCriteria": [
+        "Clicking a script card opens detailed view",
+        "Script code is displayed with appropriate formatting",
+        "Users can copy script content to clipboard"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/ScriptDetailPage.tsx",
+          "operation": "create",
+          "description": "Create a ScriptDetailPage component that displays full script information including title, description, category, author, timestamps, and content. Fetch the script using the getScript backend method with the script ID from the route parameter. Include a copy-to-clipboard button for the script content. Use a code block with monospace typography for displaying the script content."
+        },
+        {
+          "path": "frontend/src/hooks/useScript.ts",
+          "operation": "create",
+          "description": "Create a React Query hook to fetch a single script by ID using the getScript backend method. Include proper error handling for scripts that don't exist."
+        },
+        {
+          "path": "frontend/src/components/CodeBlock.tsx",
+          "operation": "create",
+          "description": "Create a CodeBlock component that displays code with syntax highlighting and a copy button. Use a library like react-syntax-highlighter or Prism for syntax highlighting. Include visual feedback when code is copied."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Add a route for /script/:id that renders the ScriptDetailPage component. Ensure proper navigation from ScriptCard to this route."
+        },
+        {
+          "path": "frontend/src/components/ScriptCard.tsx",
+          "operation": "modify",
+          "description": "Add navigation to ScriptDetailPage when a script card is clicked. Use React Router's Link or navigate function to go to /script/:id route."
+        }
+      ]
+    },
+    {
+      "id": "REQ-5",
+      "summary": "Implement user authentication using Internet Identity to enable script submission and management",
+      "acceptanceCriteria": [
+        "Users can sign in with Internet Identity",
+        "Authenticated users can submit new scripts",
+        "Users can manage their own submitted scripts"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/LoginButton.tsx",
+          "operation": "create",
+          "description": "Use the authorization component to create a login/logout button. Follow the authorization component's usage instructions exactly, including the login, logout, and state management patterns. Handle the user profile setup flow for first-time users."
+        },
+        {
+          "path": "frontend/src/components/ProfileSetupModal.tsx",
+          "operation": "create",
+          "description": "Create a modal that prompts first-time users to enter their name. Use the getCallerUserProfile backend method to check if a profile exists, and saveCallerUserProfile to save the new profile. Follow the authorization component's guidance to prevent modal flash on page load. Use shadcn/ui Dialog component for the modal."
+        },
+        {
+          "path": "frontend/src/components/ScriptSubmissionForm.tsx",
+          "operation": "create",
+          "description": "Create a form for authenticated users to submit new scripts. Include fields for title, description, category, and content. Use shadcn/ui Form components. Call the createScript backend method on submission. Only show this form to authenticated users with #user or #admin role."
+        },
+        {
+          "path": "frontend/src/pages/MyScriptsPage.tsx",
+          "operation": "create",
+          "description": "Create a page that displays scripts created by the current user. Use the getScriptsByAuthor backend method with the current user's principal. Allow users to edit or delete their own scripts using updateScript and deleteScript backend methods. Guard this page to require authentication."
+        },
+        {
+          "path": "frontend/src/hooks/useUserScripts.ts",
+          "operation": "create",
+          "description": "Create a React Query hook to fetch scripts by the current authenticated user using getScriptsByAuthor. Ensure the user is authenticated before making the request."
+        },
+        {
+          "path": "frontend/src/hooks/useCreateScript.ts",
+          "operation": "create",
+          "description": "Create a React Query mutation hook for creating scripts using the createScript backend method. Include success and error handling, and invalidate the scripts query cache on success."
+        },
+        {
+          "path": "frontend/src/hooks/useUpdateScript.ts",
+          "operation": "create",
+          "description": "Create a React Query mutation hook for updating scripts using the updateScript backend method. Include authorization checks and cache invalidation."
+        },
+        {
+          "path": "frontend/src/hooks/useDeleteScript.ts",
+          "operation": "create",
+          "description": "Create a React Query mutation hook for deleting scripts using the deleteScript backend method. Include confirmation dialog and cache invalidation."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Add a route for /my-scripts that renders the MyScriptsPage. Add navigation links to access script submission and management features. Integrate the LoginButton into the app header/navigation. Integrate the ProfileSetupModal to show when a user logs in for the first time."
+        },
+        {
+          "path": "frontend/src/components/AuthGuard.tsx",
+          "operation": "create",
+          "description": "Create an AuthGuard component that wraps protected routes and redirects unauthenticated users. Use the authorization component's useInternetIdentity hook to check authentication status. Display appropriate loading states while checking authentication."
+        },
+        {
+          "path": "frontend/src/pages/HomePage.tsx",
+          "operation": "modify",
+          "description": "Add a prominent button or link to access script submission functionality for authenticated users. Ensure unauthenticated users see a call-to-action to log in."
+        }
+      ]
+    },
+    {
+      "id": "REQ-6",
+      "summary": "Add a distinctive visual theme inspired by developer tools and code repositories, using a modern dark theme with accent colors (not blue/purple), monospace typography for code, and clean card-based layouts",
+      "acceptanceCriteria": [
+        "Consistent color scheme applied throughout the app",
+        "Typography choices enhance readability for both UI and code",
+        "Visual design conveys a professional developer-focused aesthetic"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/index.css",
+          "operation": "modify",
+          "description": "Apply a modern dark theme with developer-focused colors. Use accent colors like green, orange, or amber (avoiding blue/purple). Set CSS custom properties for consistent theming. Define monospace font family for code elements. Ensure good contrast for readability."
+        },
+        {
+          "path": "frontend/tailwind.config.js",
+          "operation": "modify",
+          "description": "Extend Tailwind configuration with custom color palette for the dark theme. Add custom spacing and typography settings optimized for code display. Define monospace font family in the theme configuration."
+        },
+        {
+          "path": "frontend/src/components/Layout.tsx",
+          "operation": "create",
+          "description": "Create a Layout component that wraps the entire application with consistent header, navigation, and footer. Include the vault-logo.dim_256x256.png from frontend/public/assets/generated/vault-logo.dim_256x256.png in the header. Apply the dark theme background and ensure all child content inherits proper styling."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Wrap all routes with the Layout component to ensure consistent theming across all pages."
+        },
+        {
+          "path": "frontend/src/components/ScriptCard.tsx",
+          "operation": "modify",
+          "description": "Apply card-based styling consistent with the dark theme. Use subtle borders, shadows, and hover effects that align with the developer-focused aesthetic."
+        }
+      ]
+    }
+  ]
+}
