@@ -1,43 +1,42 @@
 {
   "kind": "build_request",
-  "title": "Update app icon with new Rawly41 circular logo",
+  "title": "Replace app icon with new circular Rawly41 logo",
   "projectName": "Rawly41 Store",
   "priority": "normal",
   "requirements": [
     {
-      "id": "REQ-12",
-      "text": "Replace all existing app icons (192x192, 512x512, and Apple touch icons) with the newly uploaded circular Rawly41 logo featuring pink dripping text on turquoise swirl background with white border (Gemini_Generated_Image_z68096z68096z680-5.png)",
+      "id": "REQ-13",
+      "text": "Replace all existing app icons (192x192, 512x512, and Apple touch icons) referenced in frontend/public/manifest.json and frontend/index.html with the newly uploaded circular Rawly41 logo featuring pink dripping text on turquoise swirl background with white border (Gemini_Generated_Image_z68096z68096z680-6.png)",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-latest"
+          "msg-user-latest"
         ],
         "quotes": [
-          "Make this my apps icon"
+          "How I change it from this icon to this"
         ]
       },
       "acceptanceCriteria": [
-        "The manifest.json file references the new icon files generated from the uploaded image",
-        "The frontend/index.html Apple touch icon meta tag points to the new 180x180 icon",
-        "All icon sizes (192x192, 512x512, 180x180) are generated from the new circular logo design",
-        "The icons display correctly when the app is added to home screen on both iOS and Android devices"
+        "All icon sizes (192x192, 512x512, 180x180 for Apple) use the new circular Rawly41 logo with white border",
+        "The manifest.json file references the updated icon files",
+        "The index.html Apple touch icon link points to the new icon",
+        "When installed as a PWA, the app displays the new circular logo on the home screen"
       ]
     }
   ],
   "constraints": [
-    "Do not modify the manifest.json structure or PWA configuration beyond updating icon file references",
-    "Maintain the existing icon naming convention and directory structure in frontend/public"
+    "Do not modify backend files",
+    "Maintain existing PWA configuration structure"
   ],
   "nonGoals": [
-    "Changing the app name or theme colors in the manifest",
-    "Modifying the logo displayed in the header/navigation",
-    "Updating any backend functionality"
+    "Changing the app name or branding colors",
+    "Modifying the manifest structure beyond icon references"
   ],
   "imageRequirements": {
     "required": [
-      "App icon at 192x192 pixels showing the circular Rawly41 logo with pink dripping text on turquoise swirl background with white border (icon-192.dim_192x192.png)",
-      "App icon at 512x512 pixels showing the circular Rawly41 logo with pink dripping text on turquoise swirl background with white border (icon-512.dim_512x512.png)",
-      "Apple touch icon at 180x180 pixels showing the circular Rawly41 logo with pink dripping text on turquoise swirl background with white border (apple-touch-icon.dim_180x180.png)"
+      "Circular app icon with pink dripping 'Rawly41' text on turquoise swirl background with white border, sized for standard web app icon (icon-192.dim_192x192.png)",
+      "Circular app icon with pink dripping 'Rawly41' text on turquoise swirl background with white border, sized for large web app icon (icon-512.dim_512x512.png)",
+      "Circular app icon with pink dripping 'Rawly41' text on turquoise swirl background with white border, sized for Apple touch icon (apple-touch-icon.dim_180x180.png)"
     ],
     "edits": []
   }

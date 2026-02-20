@@ -1,11 +1,11 @@
 {
   "schemaVersion": "1.0.0",
-  "projectStateVersion": 9,
+  "projectStateVersion": 11,
   "summary": "Create an app based on the website at https://gigantic-script-vault-hub.base44.app/",
   "architectural_notes": [],
   "known_issues": [],
   "isFixRequest": false,
-  "imageRequirements": "## Required Images\n- App icon at 192x192 pixels showing the circular Rawly41 logo with pink dripping text on turquoise swirl background with white border (icon-192.dim_192x192.png)\n- App icon at 512x512 pixels showing the circular Rawly41 logo with pink dripping text on turquoise swirl background with white border (icon-512.dim_512x512.png)\n- Apple touch icon at 180x180 pixels showing the circular Rawly41 logo with pink dripping text on turquoise swirl background with white border (apple-touch-icon.dim_180x180.png)",
+  "imageRequirements": "## Required Images\n- Circular app icon with pink dripping 'Rawly41' text on turquoise swirl background with white border, sized for standard web app icon (icon-192.dim_192x192.png)\n- Circular app icon with pink dripping 'Rawly41' text on turquoise swirl background with white border, sized for large web app icon (icon-512.dim_512x512.png)\n- Circular app icon with pink dripping 'Rawly41' text on turquoise swirl background with white border, sized for Apple touch icon (apple-touch-icon.dim_180x180.png)",
   "existing_features": [
     {
       "id": "feature-create-a-homepage-layout-that-displays-a-collection-of-scripts-in-a-grid-or-card-format-allowing-users-to-browse-available-scripts",
@@ -108,6 +108,14 @@
       "summary": "Replace all existing app icons (192x192, 512x512, and Apple touch icons) with the newly uploaded circular Rawly41 logo featuring pink dripping text on turquoise swirl background with white border (Gemini_Generated_Image_z68096z68096z680-5.png)",
       "reqIds": [
         "REQ-12"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-5",
+      "summary": "Replace all existing app icons (192x192, 512x512, and Apple touch icons) referenced in frontend/public/manifest.json and frontend/index.html with the newly uploaded circular Rawly41 logo featuring pink dripping text on turquoise swirl background with white border (Gemini_Generated_Image_z68096z68096z680-6.png)",
+      "reqIds": [
+        "REQ-13"
       ],
       "status": "pending"
     }
