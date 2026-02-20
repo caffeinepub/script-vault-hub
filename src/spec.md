@@ -1,15 +1,11 @@
 # Specification
 
 ## Summary
-**Goal:** Create a Script Vault Hub application that allows users to browse, search, and share code scripts with authentication and management capabilities.
+**Goal:** Replace all app icons with the new circular Rawly41 logo featuring pink dripping text on turquoise swirl background.
 
 **Planned changes:**
-- Build homepage with grid layout displaying script cards (title, description, category)
-- Implement backend data model for storing and retrieving scripts
-- Add search and filter functionality by keyword and category
-- Create detailed script view with syntax highlighting and copy-to-clipboard feature
-- Integrate Internet Identity authentication for user sign-in
-- Enable authenticated users to submit and manage their own scripts
-- Apply modern dark theme with developer-focused aesthetic using accent colors, monospace typography for code, and card-based layouts
+- Generate new app icons at 192x192, 512x512, and 180x180 pixels from the uploaded circular Rawly41 logo
+- Update manifest.json to reference the new icon files
+- Update index.html Apple touch icon meta tag to point to the new 180x180 icon
 
-**User-visible outcome:** Users can browse a collection of scripts, search and filter by category, view detailed script content with syntax highlighting, copy scripts to clipboard, and authenticated users can submit and manage their own scripts using Internet Identity.
+**User-visible outcome:** When users add the app to their home screen on iOS or Android devices, they will see the new circular Rawly41 logo with pink dripping text on a turquoise swirl background.

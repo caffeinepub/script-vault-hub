@@ -1,11 +1,11 @@
 {
   "schemaVersion": "1.0.0",
-  "projectStateVersion": 3,
+  "projectStateVersion": 9,
   "summary": "Create an app based on the website at https://gigantic-script-vault-hub.base44.app/",
   "architectural_notes": [],
   "known_issues": [],
   "isFixRequest": false,
-  "imageRequirements": "## Required Images\n- Code-themed hero banner with abstract programming elements (hero-banner.dim_1200x400.png)\n- Script vault logo icon with document or repository motif (vault-logo.dim_256x256.png)",
+  "imageRequirements": "## Required Images\n- App icon at 192x192 pixels showing the circular Rawly41 logo with pink dripping text on turquoise swirl background with white border (icon-192.dim_192x192.png)\n- App icon at 512x512 pixels showing the circular Rawly41 logo with pink dripping text on turquoise swirl background with white border (icon-512.dim_512x512.png)\n- Apple touch icon at 180x180 pixels showing the circular Rawly41 logo with pink dripping text on turquoise swirl background with white border (apple-touch-icon.dim_180x180.png)",
   "existing_features": [
     {
       "id": "feature-create-a-homepage-layout-that-displays-a-collection-of-scripts-in-a-grid-or-card-format-allowing-users-to-browse-available-scripts",
@@ -46,6 +46,46 @@
         "REQ-6"
       ],
       "version": 1
+    },
+    {
+      "id": "feature-update-the-application-name-from-script-vault-hub-to-rawly41-store-in-all-visible-locations-including-the-html-title-tag-header-logo-text-and-any-other-user-facing-references",
+      "title": "Update the application name from 'Script Vault Hub' to 'Rawly41 Store' in all visible locations including the HTML title tag, header logo text, and any other user-facing references",
+      "reqIds": [
+        "REQ-7"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-replace-the-current-logo-profile-picture-with-the-uploaded-custom-image-gemini-generated-image-z68096z68096z680-png-showing-pink-dripping-rawly41-text-on-a-turquoise-swirl-background",
+      "title": "Replace the current logo/profile picture with the uploaded custom image (Gemini_Generated_Image_z68096z68096z680.png) showing pink dripping 'Rawly41' text on a turquoise swirl background",
+      "reqIds": [
+        "REQ-8"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-a-web-app-manifest-file-manifest-json-in-the-frontend-public-directory-with-proper-pwa-configuration-including-app-name-rawly41-store-short-name-description-display-mode-standalone-theme-color-matching-the-turquoise-brand-color-and-background-color",
+      "title": "Create a web app manifest file (manifest.json) in the frontend/public directory with proper PWA configuration including app name 'Rawly41 Store', short_name, description, display mode 'standalone', theme color matching the turquoise brand color, and background color",
+      "reqIds": [
+        "REQ-9"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-generate-app-icons-in-multiple-sizes-192x192-512x512-180x180-for-apple-using-the-uploaded-rawly41-logo-with-pink-dripping-text-on-turquoise-swirl-background-and-configure-the-manifest-to-reference-these-icons-with-proper-sizes-and-types",
+      "title": "Generate app icons in multiple sizes (192x192, 512x512, 180x180 for Apple) using the uploaded Rawly41 logo with pink dripping text on turquoise swirl background, and configure the manifest to reference these icons with proper sizes and types",
+      "reqIds": [
+        "REQ-10"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-frontend-index-html-to-include-manifest-link-tag-apple-touch-icon-meta-tag-theme-color-meta-tag-and-apple-mobile-web-app-capable-meta-tag-for-proper-pwa-and-ios-home-screen-support",
+      "title": "Update frontend/index.html to include manifest link tag, Apple touch icon meta tag, theme-color meta tag, and apple-mobile-web-app-capable meta tag for proper PWA and iOS home screen support",
+      "reqIds": [
+        "REQ-11"
+      ],
+      "version": 1
     }
   ],
   "new_feature_requests": [
@@ -62,9 +102,17 @@
         "REQ-2"
       ],
       "status": "pending"
+    },
+    {
+      "id": "AR-4",
+      "summary": "Replace all existing app icons (192x192, 512x512, and Apple touch icons) with the newly uploaded circular Rawly41 logo featuring pink dripping text on turquoise swirl background with white border (Gemini_Generated_Image_z68096z68096z680-5.png)",
+      "reqIds": [
+        "REQ-12"
+      ],
+      "status": "pending"
     }
   ],
-  "projectName": "Script Vault Hub",
+  "projectName": "Rawly41 Store",
   "clarification_mode": "instant",
   "clarification_rounds": 0
 }

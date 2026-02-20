@@ -1,130 +1,43 @@
 {
   "kind": "build_request",
-  "title": "Replicate Script Vault Hub website functionality",
-  "projectName": "Script Vault Hub",
+  "title": "Update app icon with new Rawly41 circular logo",
+  "projectName": "Rawly41 Store",
   "priority": "normal",
   "requirements": [
     {
-      "id": "REQ-1",
-      "text": "Create a homepage layout that displays a collection of scripts in a grid or card format, allowing users to browse available scripts",
+      "id": "REQ-12",
+      "text": "Replace all existing app icons (192x192, 512x512, and Apple touch icons) with the newly uploaded circular Rawly41 logo featuring pink dripping text on turquoise swirl background with white border (Gemini_Generated_Image_z68096z68096z680-5.png)",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-2"
+          "msg-latest"
         ],
         "quotes": [
-          "Make a app of this website https://gigantic-script-vault-hub.base44.app/"
+          "Make this my apps icon"
         ]
       },
       "acceptanceCriteria": [
-        "Scripts are displayed in a responsive grid layout",
-        "Each script card shows key information (title, description, category)",
-        "Layout adapts to different screen sizes"
-      ]
-    },
-    {
-      "id": "REQ-2",
-      "text": "Implement backend data model to store and retrieve script information including title, description, category, content, and metadata",
-      "target": "backend",
-      "source": {
-        "messageIds": [
-          "msg-2"
-        ],
-        "quotes": [
-          "Make a app of this website https://gigantic-script-vault-hub.base44.app/"
-        ]
-      },
-      "acceptanceCriteria": [
-        "Scripts can be stored with all required fields",
-        "Scripts can be retrieved for display",
-        "Data persists across canister upgrades"
-      ]
-    },
-    {
-      "id": "REQ-3",
-      "text": "Add script search and filtering functionality to help users find specific scripts by keyword or category",
-      "target": "both",
-      "source": {
-        "messageIds": [
-          "msg-2"
-        ],
-        "quotes": [
-          "Make a app of this website https://gigantic-script-vault-hub.base44.app/"
-        ]
-      },
-      "acceptanceCriteria": [
-        "Users can search scripts by keyword",
-        "Users can filter scripts by category",
-        "Search results update dynamically"
-      ]
-    },
-    {
-      "id": "REQ-4",
-      "text": "Create script detail view that displays full script content with syntax highlighting and copy functionality",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-2"
-        ],
-        "quotes": [
-          "Make a app of this website https://gigantic-script-vault-hub.base44.app/"
-        ]
-      },
-      "acceptanceCriteria": [
-        "Clicking a script card opens detailed view",
-        "Script code is displayed with appropriate formatting",
-        "Users can copy script content to clipboard"
-      ]
-    },
-    {
-      "id": "REQ-5",
-      "text": "Implement user authentication using Internet Identity to enable script submission and management",
-      "target": "both",
-      "source": {
-        "messageIds": [
-          "msg-2"
-        ],
-        "quotes": [
-          "Make a app of this website https://gigantic-script-vault-hub.base44.app/"
-        ]
-      },
-      "acceptanceCriteria": [
-        "Users can sign in with Internet Identity",
-        "Authenticated users can submit new scripts",
-        "Users can manage their own submitted scripts"
-      ]
-    },
-    {
-      "id": "REQ-6",
-      "text": "Add a distinctive visual theme inspired by developer tools and code repositories, using a modern dark theme with accent colors (not blue/purple), monospace typography for code, and clean card-based layouts",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-2"
-        ]
-      },
-      "acceptanceCriteria": [
-        "Consistent color scheme applied throughout the app",
-        "Typography choices enhance readability for both UI and code",
-        "Visual design conveys a professional developer-focused aesthetic"
+        "The manifest.json file references the new icon files generated from the uploaded image",
+        "The frontend/index.html Apple touch icon meta tag points to the new 180x180 icon",
+        "All icon sizes (192x192, 512x512, 180x180) are generated from the new circular logo design",
+        "The icons display correctly when the app is added to home screen on both iOS and Android devices"
       ]
     }
   ],
   "constraints": [
-    "Use Internet Identity for authentication (no third-party auth providers)",
-    "All data must be stored in the Motoko backend canister",
-    "Follow single-actor architecture pattern"
+    "Do not modify the manifest.json structure or PWA configuration beyond updating icon file references",
+    "Maintain the existing icon naming convention and directory structure in frontend/public"
   ],
   "nonGoals": [
-    "Integration with external script repositories or APIs",
-    "Real-time collaborative editing",
-    "Version control or git integration",
-    "Script execution or runtime environment"
+    "Changing the app name or theme colors in the manifest",
+    "Modifying the logo displayed in the header/navigation",
+    "Updating any backend functionality"
   ],
   "imageRequirements": {
     "required": [
-      "Code-themed hero banner with abstract programming elements (hero-banner.dim_1200x400.png)",
-      "Script vault logo icon with document or repository motif (vault-logo.dim_256x256.png)"
+      "App icon at 192x192 pixels showing the circular Rawly41 logo with pink dripping text on turquoise swirl background with white border (icon-192.dim_192x192.png)",
+      "App icon at 512x512 pixels showing the circular Rawly41 logo with pink dripping text on turquoise swirl background with white border (icon-512.dim_512x512.png)",
+      "Apple touch icon at 180x180 pixels showing the circular Rawly41 logo with pink dripping text on turquoise swirl background with white border (apple-touch-icon.dim_180x180.png)"
     ],
     "edits": []
   }

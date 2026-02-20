@@ -1,6 +1,6 @@
 {
   "frontend/src/App.tsx": "Main application component with TanStack Router setup, defining routes for home, script detail, and my scripts pages, wrapped with ThemeProvider and ProfileSetupModal.",
-  "frontend/src/components/Layout.tsx": "Application layout component with header containing logo and navigation, main content area, and footer with attribution and copyright.",
+  "frontend/src/components/Layout.tsx": "Application layout component with header containing the custom Rawly41 logo image (circular with ring styling), updated app name throughout, main content area, and footer with attribution",
   "frontend/src/components/LoginButton.tsx": "Authentication button component that handles Internet Identity login/logout with loading states and proper error handling.",
   "frontend/src/components/ProfileSetupModal.tsx": "Modal dialog that prompts first-time users to enter their name after authentication, with proper loading state management to prevent flash.",
   "frontend/src/components/ScriptCard.tsx": "Reusable card component displaying script information (title, description, category, author, date) with hover effects and navigation to detail page.",
@@ -14,5 +14,7 @@
   "frontend/src/pages/MyScriptsPage.tsx": "Protected page displaying user's submitted scripts with inline edit and delete functionality, now properly handling optional identity without non-null assertions.",
   "frontend/src/hooks/useQueries.ts": "React Query hooks for all backend operations including user profiles, script CRUD operations, search, and filtering, with updated useGetScriptsByAuthor to accept optional Principal parameter.",
   "frontend/src/index.css": "Global styles with OKLCH color system using green accent (142° hue) for developer-focused dark theme.",
-  "frontend/tailwind.config.js": "Tailwind configuration with custom color palette, monospace fonts (JetBrains Mono, Fira Code), and extended design tokens."
+  "frontend/tailwind.config.js": "Tailwind configuration with custom color palette, monospace fonts (JetBrains Mono, Fira Code), and extended design tokens.",
+  "frontend/index.html": "HTML entry point with updated PWA meta tags including manifest link, Apple touch icon, and mobile web app configuration for home screen installation.",
+  "frontend/public/manifest.json": "PWA manifest configuration file defining app name, icons, display mode, and theme colors for home screen installation."
 }

@@ -16,12 +16,12 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           <div className="flex items-center justify-between">
             <Link to="/" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
               <img 
-                src="/assets/generated/vault-logo.dim_256x256.png" 
-                alt="Script Vault Hub" 
-                className="h-10 w-10"
+                src="/assets/Gemini_Generated_Image_z68096z68096z680.png" 
+                alt="Rawly41 Store" 
+                className="h-10 w-10 rounded-full ring-2 ring-accent/50"
               />
               <div className="flex flex-col">
-                <h1 className="text-xl font-bold text-foreground tracking-tight">Script Vault Hub</h1>
+                <h1 className="text-xl font-bold text-foreground tracking-tight">Rawly41 Store</h1>
                 <p className="text-xs text-muted-foreground">Developer Script Repository</p>
               </div>
             </Link>
@@ -56,7 +56,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       <footer className="border-t border-border/50 bg-card/30 backdrop-blur-sm mt-auto">
         <div className="container mx-auto px-4 py-6">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-muted-foreground">
-            <p>© {currentYear} Script Vault Hub. All rights reserved.</p>
+            <p>© {currentYear} Rawly41 Store. All rights reserved.</p>
             <p className="flex items-center gap-1">
               Built with <span className="text-accent">♥</span> using{' '}
               <a
