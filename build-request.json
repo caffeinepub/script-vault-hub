@@ -1,0 +1,94 @@
+{
+  "kind": "build_request",
+  "title": "Restore missing scripts functionality",
+  "projectName": "Rawly41 Store",
+  "priority": "high",
+  "requirements": [
+    {
+      "id": "REQ-1",
+      "text": "Restore the script listing functionality on the homepage so that all public scripts are displayed in the ScriptGrid component",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-user-final"
+        ],
+        "quotes": [
+          "Add my scripts back"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Scripts are visible on the homepage in a grid layout",
+        "ScriptCard components display for each script with title, description, category, and author",
+        "Empty state shows when no scripts exist"
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "text": "Ensure the My Scripts page correctly displays scripts owned by the authenticated user with edit and delete functionality",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-user-final"
+        ],
+        "quotes": [
+          "Add my scripts back"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Authenticated users can view their own scripts on the My Scripts page",
+        "Edit and delete buttons are functional for user's own scripts",
+        "Page redirects unauthenticated users appropriately"
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "text": "Verify the script detail page loads and displays individual script content with syntax highlighting and metadata",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-user-final"
+        ],
+        "quotes": [
+          "Add my scripts back"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Clicking a script card navigates to its detail page",
+        "Full script code is displayed with syntax highlighting",
+        "Script metadata (author, category, dates) is visible"
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "text": "Ensure the backend script CRUD operations are functioning correctly and returning data to the frontend queries",
+      "target": "backend",
+      "source": {
+        "messageIds": [
+          "msg-user-final"
+        ],
+        "quotes": [
+          "Add my scripts back"
+        ]
+      },
+      "acceptanceCriteria": [
+        "getAllScripts returns all public scripts",
+        "getScriptsByOwner returns scripts filtered by owner principal",
+        "getScript returns individual script details by ID"
+      ]
+    }
+  ],
+  "constraints": [
+    "Maintain existing authentication flow using Internet Identity",
+    "Preserve the single-actor backend architecture in backend/main.mo",
+    "Keep immutable frontend paths unchanged (hooks/useInternetIdentity.ts, hooks/useActor.ts, main.tsx, components/ui)"
+  ],
+  "nonGoals": [
+    "Adding new script features beyond restoration",
+    "Changing the visual design or branding",
+    "Modifying the authentication system"
+  ],
+  "imageRequirements": {
+    "required": [],
+    "edits": []
+  }
+}
