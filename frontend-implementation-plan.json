@@ -1,83 +1,71 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Restore missing scripts functionality",
+  "title": "Restore user scripts display on My Scripts and Home pages",
   "requirements": [
     {
       "id": "REQ-1",
-      "summary": "Restore the script listing functionality on the homepage so that all public scripts are displayed in the ScriptGrid component",
+      "summary": "Ensure the Home page correctly fetches and displays all publicly available scripts from the backend, showing script cards with title, description, category, author, and creation date.",
       "acceptanceCriteria": [
-        "Scripts are visible on the homepage in a grid layout",
-        "ScriptCard components display for each script with title, description, category, and author",
-        "Empty state shows when no scripts exist"
+        "The Home page loads and renders all scripts returned by the backend's public read endpoint.",
+        "Each script card displays title, description, category, author, and creation date.",
+        "Loading skeletons are shown while scripts are being fetched.",
+        "An empty state message is shown if no scripts exist."
       ],
       "file_operations": [
         {
           "path": "frontend/src/pages/HomePage.tsx",
           "operation": "modify",
-          "description": "Verify that useGetAllScripts hook is properly integrated and that the scripts data is correctly passed to ScriptGrid. Ensure error states and loading states are handled appropriately. Check that the query is enabled and not blocked by any conditional logic."
-        },
-        {
-          "path": "frontend/src/hooks/useQueries.ts",
-          "operation": "modify",
-          "description": "Review and fix the useGetAllScripts hook to ensure it correctly calls actor.getAllScripts() with proper error handling, retry logic, and enabled conditions. Verify the query key is consistent and the queryFn properly awaits the actor method."
+          "description": "Review and fix the script fetching logic to ensure useGetAllScripts hook is correctly invoked and its data is properly passed to ScriptGrid component. Verify that loading states, error handling, and empty state messaging are working correctly. Ensure the component properly handles the query response from useQueries.ts."
         },
         {
           "path": "frontend/src/components/ScriptGrid.tsx",
           "operation": "modify",
-          "description": "Ensure ScriptGrid correctly receives and renders the scripts array prop. Verify the empty state message displays when scripts array is empty, and that the grid layout properly maps over scripts to render ScriptCard components."
+          "description": "Verify that the component correctly renders ScriptCard components from the scripts array prop, displays loading skeletons during fetch, and shows appropriate empty state messaging when no scripts are available. Ensure no filtering logic is inadvertently hiding scripts."
+        },
+        {
+          "path": "frontend/src/components/ScriptCard.tsx",
+          "operation": "modify",
+          "description": "Verify that all required script properties (title, description, category, author, createdAt) are correctly rendered from the Script type. Ensure the component handles Principal conversion for author display and formats dates appropriately."
         }
       ]
     },
     {
       "id": "REQ-2",
-      "summary": "Ensure the My Scripts page correctly displays scripts owned by the authenticated user with edit and delete functionality",
+      "summary": "Ensure the My Scripts page correctly fetches and displays all scripts belonging to the authenticated user, with working edit and delete functionality.",
       "acceptanceCriteria": [
-        "Authenticated users can view their own scripts on the My Scripts page",
-        "Edit and delete buttons are functional for user's own scripts",
-        "Page redirects unauthenticated users appropriately"
+        "Authenticated users can navigate to My Scripts and see all their submitted scripts.",
+        "Each script entry shows title, description, category, and creation date.",
+        "Edit dialog opens pre-populated with the script's existing data and saves changes successfully.",
+        "Delete confirmation dialog appears before removing a script, and the list updates after deletion."
       ],
       "file_operations": [
         {
           "path": "frontend/src/pages/MyScriptsPage.tsx",
           "operation": "modify",
-          "description": "Fix the useGetScriptsByAuthor hook integration to properly fetch scripts for the authenticated user's principal. Ensure authentication guards redirect unauthenticated users. Verify edit and delete dialogs are wired correctly with their respective mutation hooks (useUpdateScript and useDeleteScript). Check that identity.getPrincipal() is correctly passed to the query."
+          "description": "Review and fix the user script fetching logic using useGetScriptsByAuthor hook to ensure it correctly retrieves scripts for the authenticated user's principal. Verify edit dialog pre-population, update mutation calls, and delete confirmation flow. Ensure query invalidation after successful mutations so the list updates properly."
         },
         {
           "path": "frontend/src/hooks/useQueries.ts",
           "operation": "modify",
-          "description": "Review useGetScriptsByAuthor to ensure it correctly accepts the author principal parameter and calls actor.getScriptsByAuthor(author). Verify the query is only enabled when both actor and author principal are available. Fix useUpdateScript and useDeleteScript mutations to properly invalidate the scripts queries on success."
+          "description": "Add or verify useGetScriptsByAuthor hook that calls actor.getScriptsByAuthor with the current user's principal. Ensure the hook is enabled only when actor and identity are available, and properly returns the array of scripts."
         }
       ]
     },
     {
       "id": "REQ-3",
-      "summary": "Verify the script detail page loads and displays individual script content with syntax highlighting and metadata",
+      "summary": "Audit and fix the React Query hooks in useQueries.ts to ensure the script-fetching queries are correctly wired to the backend actor and returning data. Verify that query keys, actor method calls, and data transformations are correct so scripts are not lost or silently failing.",
       "acceptanceCriteria": [
-        "Clicking a script card navigates to its detail page",
-        "Full script code is displayed with syntax highlighting",
-        "Script metadata (author, category, dates) is visible"
+        "useQueries.ts script-fetching hooks successfully call the correct backend actor methods.",
+        "Query results are properly mapped and returned to consuming components.",
+        "No silent errors or empty arrays are returned when scripts exist in the backend.",
+        "Console shows no unhandled query errors related to script fetching."
       ],
       "file_operations": [
         {
-          "path": "frontend/src/pages/ScriptDetailPage.tsx",
-          "operation": "modify",
-          "description": "Fix the useGetScript hook to properly extract the script ID from route parameters and fetch the correct script. Ensure CodeBlock component receives the script content for syntax highlighting. Verify metadata display (author, category, dates) renders correctly from the fetched script data. Check that the delete functionality for owners is properly guarded."
-        },
-        {
           "path": "frontend/src/hooks/useQueries.ts",
           "operation": "modify",
-          "description": "Review useGetScript to ensure it correctly accepts the script ID parameter and calls actor.getScript(id). Verify the query is enabled only when both actor and ID are available. Check error handling for non-existent scripts."
-        },
-        {
-          "path": "frontend/src/components/ScriptCard.tsx",
-          "operation": "modify",
-          "description": "Ensure ScriptCard's Link component correctly navigates to the script detail page using the proper route path (/script/:id). Verify the script ID is properly passed in the to prop."
-        },
-        {
-          "path": "frontend/src/App.tsx",
-          "operation": "modify",
-          "description": "Verify that the script detail route is properly registered in the router configuration with the correct path pattern (/script/:id) and component mapping to ScriptDetailPage."
+          "description": "Audit all script-fetching query hooks (useGetAllScripts, useGetScriptsByAuthor, useGetScript, useFilterScriptsByCategory, useSearchScriptsByTitle) to verify: 1) Query keys are unique and correctly structured, 2) queryFn correctly calls the backend actor method with proper parameters, 3) enabled flags correctly check for actor availability, 4) retry and staleTime settings are appropriate, 5) data transformations (if any) preserve all script data, 6) error handling does not silently suppress failures. Add console logging for debugging if needed."
         }
       ]
     }

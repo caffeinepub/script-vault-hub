@@ -1,7 +1,7 @@
 {
   "kind": "coverage_report",
   "version": "1.0",
-  "generatedAt": "2026-02-20T21:56:01.843Z",
+  "generatedAt": "2026-02-27T02:07:59.552Z",
   "sources": {
     "buildRequest": true,
     "implementationPlan": true
@@ -12,22 +12,20 @@
     "items": [
       {
         "id": "REQ-1",
-        "summary": "Restore the script listing functionality on the homepage so that all public scripts are displayed in the ScriptGrid component",
+        "summary": "Ensure the Home page correctly fetches and displays all publicly available scripts from the backend, showing script cards with title, description, category, author, and creation date.",
         "status": "implemented",
         "plannedFiles": [
           "frontend/src/pages/HomePage.tsx",
-          "frontend/src/hooks/useQueries.ts",
-          "frontend/src/components/ScriptGrid.tsx"
+          "frontend/src/components/ScriptGrid.tsx",
+          "frontend/src/components/ScriptCard.tsx"
         ],
         "matchedFiles": [
-          "frontend/src/pages/HomePage.tsx",
-          "frontend/src/hooks/useQueries.ts",
-          "frontend/src/components/ScriptGrid.tsx"
+          "frontend/src/pages/HomePage.tsx"
         ]
       },
       {
         "id": "REQ-2",
-        "summary": "Ensure the My Scripts page correctly displays scripts owned by the authenticated user with edit and delete functionality",
+        "summary": "Ensure the My Scripts page correctly fetches and displays all scripts belonging to the authenticated user, with working edit and delete functionality.",
         "status": "implemented",
         "plannedFiles": [
           "frontend/src/pages/MyScriptsPage.tsx",
@@ -40,13 +38,10 @@
       },
       {
         "id": "REQ-3",
-        "summary": "Verify the script detail page loads and displays individual script content with syntax highlighting and metadata",
+        "summary": "Audit and fix the React Query hooks in useQueries.ts to ensure the script-fetching queries are correctly wired to the backend actor and returning data. Verify that query keys, actor method calls, and data transformations are correct so scripts are not lost or silently failing.",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/src/pages/ScriptDetailPage.tsx",
-          "frontend/src/hooks/useQueries.ts",
-          "frontend/src/components/ScriptCard.tsx",
-          "frontend/src/App.tsx"
+          "frontend/src/hooks/useQueries.ts"
         ],
         "matchedFiles": [
           "frontend/src/hooks/useQueries.ts"
@@ -54,7 +49,7 @@
       },
       {
         "id": "REQ-4",
-        "summary": "Ensure the backend script CRUD operations are functioning correctly and returning data to the frontend queries",
+        "summary": "Verify the backend main.mo actor exposes correct public read endpoints for listing all scripts and user-specific scripts, ensuring stored scripts are accessible and not inadvertently filtered out or lost.",
         "status": "unknown",
         "plannedFiles": [],
         "matchedFiles": []
@@ -64,10 +59,11 @@
   "changedFiles": [
     "backend/main.mo",
     "build-request.json",
+    "build-template/README.md",
+    "caffeine.lock.json",
     "feature_evidence.json",
     "frontend-file-summaries.txt",
     "frontend-implementation-plan.json",
-    "frontend/src/components/ScriptGrid.tsx",
     "frontend/src/hooks/useQueries.ts",
     "frontend/src/pages/HomePage.tsx",
     "frontend/src/pages/MyScriptsPage.tsx",

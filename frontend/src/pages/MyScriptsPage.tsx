@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useNavigate, Link } from '@tanstack/react-router';
 import { useInternetIdentity } from '../hooks/useInternetIdentity';
 import { useGetScriptsByAuthor, useDeleteScript, useUpdateScript } from '../hooks/useQueries';
@@ -26,7 +26,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from '@/components/ui/alert-dialog';
-import { Loader2, Edit, Trash2, FileCode, Calendar, LogIn, ArrowLeft } from 'lucide-react';
+import { Loader2, Edit, Trash2, FileCode, Calendar, LogIn, ArrowLeft, RefreshCw } from 'lucide-react';
 import { toast } from 'sonner';
 import type { Script } from '../backend';
 
@@ -37,7 +37,7 @@ export default function MyScriptsPage() {
   const navigate = useNavigate();
   const isAuthenticated = !!identity;
   const principal = identity ? identity.getPrincipal() : undefined;
-  const { data: scripts = [], isLoading, error } = useGetScriptsByAuthor(principal);
+  const { data: scripts = [], isLoading, error, refetch } = useGetScriptsByAuthor(principal);
   const deleteScript = useDeleteScript();
   const updateScript = useUpdateScript();
 
@@ -49,13 +49,6 @@ export default function MyScriptsPage() {
     category: '',
     content: '',
   });
-
-  // Redirect to home if not authenticated after initialization
-  useEffect(() => {
-    if (!isInitializing && !isAuthenticated) {
-      navigate({ to: '/' });
-    }
-  }, [isAuthenticated, isInitializing, navigate]);
 
   const handleEditClick = (script: Script) => {
     setEditingScript(script);
@@ -132,8 +125,8 @@ export default function MyScriptsPage() {
               <ArrowLeft className="h-4 w-4 mr-2" />
               Back to Home
             </Button>
-            <Button 
-              onClick={handleLoginPrompt} 
+            <Button
+              onClick={handleLoginPrompt}
               className="bg-accent hover:bg-accent/90 gap-2"
               disabled={loginStatus === 'logging-in'}
             >
@@ -148,9 +141,22 @@ export default function MyScriptsPage() {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold text-foreground mb-2">My Scripts</h1>
-        <p className="text-muted-foreground">Manage your submitted scripts</p>
+      <div className="mb-8 flex items-start justify-between">
+        <div>
+          <h1 className="text-3xl font-bold text-foreground mb-2">My Scripts</h1>
+          <p className="text-muted-foreground">
+            {isLoading ? 'Loading your scripts...' : `${scripts.length} ${scripts.length === 1 ? 'script' : 'scripts'} found`}
+          </p>
+        </div>
+        <Button
+          variant="ghost"
+          size="icon"
+          onClick={() => refetch()}
+          disabled={isLoading}
+          title="Refresh scripts"
+        >
+          <RefreshCw className={`h-4 w-4 ${isLoading ? 'animate-spin' : ''}`} />
+        </Button>
       </div>
 
       {isLoading ? (
@@ -159,7 +165,11 @@ export default function MyScriptsPage() {
         </div>
       ) : error ? (
         <div className="text-center py-8 text-destructive">
-          <p>Error loading your scripts. Please try refreshing the page.</p>
+          <p className="mb-4">Error loading your scripts. Please try refreshing.</p>
+          <Button variant="outline" onClick={() => refetch()} className="gap-2">
+            <RefreshCw className="h-4 w-4" />
+            Retry
+          </Button>
         </div>
       ) : scripts.length === 0 ? (
         <div className="text-center py-16 bg-card border border-border rounded-lg">
@@ -224,11 +234,13 @@ export default function MyScriptsPage() {
       )}
 
       {/* Edit Dialog */}
-      <Dialog open={!!editingScript} onOpenChange={() => setEditingScript(null)}>
+      <Dialog open={!!editingScript} onOpenChange={(open) => { if (!open) setEditingScript(null); }}>
         <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle>Edit Script</DialogTitle>
-            <DialogDescription>Make changes to your script below.</DialogDescription>
+            <DialogDescription>
+              Update your script details below.
+            </DialogDescription>
           </DialogHeader>
           <form onSubmit={handleEditSubmit} className="space-y-4">
             <div className="space-y-2">
@@ -236,9 +248,9 @@ export default function MyScriptsPage() {
               <Input
                 id="edit-title"
                 value={editForm.title}
-                onChange={(e) => setEditForm({ ...editForm, title: e.target.value })}
+                onChange={(e) => setEditForm((prev) => ({ ...prev, title: e.target.value }))}
                 placeholder="Script title"
-                disabled={updateScript.isPending}
+                required
               />
             </div>
             <div className="space-y-2">
@@ -246,21 +258,20 @@ export default function MyScriptsPage() {
               <Textarea
                 id="edit-description"
                 value={editForm.description}
-                onChange={(e) => setEditForm({ ...editForm, description: e.target.value })}
-                placeholder="Brief description"
+                onChange={(e) => setEditForm((prev) => ({ ...prev, description: e.target.value }))}
+                placeholder="Brief description of what this script does"
                 rows={3}
-                disabled={updateScript.isPending}
+                required
               />
             </div>
             <div className="space-y-2">
               <Label htmlFor="edit-category">Category</Label>
               <Select
                 value={editForm.category}
-                onValueChange={(value) => setEditForm({ ...editForm, category: value })}
-                disabled={updateScript.isPending}
+                onValueChange={(value) => setEditForm((prev) => ({ ...prev, category: value }))}
               >
                 <SelectTrigger id="edit-category">
-                  <SelectValue placeholder="Select category" />
+                  <SelectValue placeholder="Select a category" />
                 </SelectTrigger>
                 <SelectContent>
                   {CATEGORIES.map((cat) => (
@@ -276,14 +287,14 @@ export default function MyScriptsPage() {
               <Textarea
                 id="edit-content"
                 value={editForm.content}
-                onChange={(e) => setEditForm({ ...editForm, content: e.target.value })}
-                placeholder="Paste your script here"
+                onChange={(e) => setEditForm((prev) => ({ ...prev, content: e.target.value }))}
+                placeholder="Paste your script here..."
                 rows={12}
                 className="font-mono text-sm"
-                disabled={updateScript.isPending}
+                required
               />
             </div>
-            <div className="flex gap-2 justify-end">
+            <div className="flex gap-3 justify-end pt-2">
               <Button
                 type="button"
                 variant="outline"
@@ -295,7 +306,7 @@ export default function MyScriptsPage() {
               <Button
                 type="submit"
                 className="bg-accent hover:bg-accent/90"
-                disabled={updateScript.isPending || !editForm.title.trim() || !editForm.content.trim()}
+                disabled={updateScript.isPending}
               >
                 {updateScript.isPending ? (
                   <>
@@ -312,18 +323,19 @@ export default function MyScriptsPage() {
       </Dialog>
 
       {/* Delete Confirmation Dialog */}
-      <AlertDialog open={!!deleteScriptId} onOpenChange={() => setDeleteScriptId(null)}>
+      <AlertDialog open={!!deleteScriptId} onOpenChange={(open) => { if (!open) setDeleteScriptId(null); }}>
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+            <AlertDialogTitle>Delete Script</AlertDialogTitle>
             <AlertDialogDescription>
-              This action cannot be undone. This will permanently delete your script.
+              Are you sure you want to delete this script? This action cannot be undone.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogCancel disabled={deleteScript.isPending}>Cancel</AlertDialogCancel>
             <AlertDialogAction
               onClick={handleDelete}
+              disabled={deleteScript.isPending}
               className="bg-destructive hover:bg-destructive/90"
             >
               {deleteScript.isPending ? (

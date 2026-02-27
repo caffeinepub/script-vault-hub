@@ -5,7 +5,7 @@ import ScriptGrid from '../components/ScriptGrid';
 import ScriptSearch from '../components/ScriptSearch';
 import ScriptSubmissionForm from '../components/ScriptSubmissionForm';
 import { Button } from '@/components/ui/button';
-import { Plus, Code2, LogIn } from 'lucide-react';
+import { Plus, Code2, LogIn, RefreshCw } from 'lucide-react';
 
 export default function HomePage() {
   const { identity, login, loginStatus } = useInternetIdentity();
@@ -14,7 +14,7 @@ export default function HomePage() {
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [showSubmitForm, setShowSubmitForm] = useState(false);
 
-  const { data: allScripts = [], isLoading: allLoading, error: allError } = useGetAllScripts();
+  const { data: allScripts = [], isLoading: allLoading, error: allError, refetch: refetchAll } = useGetAllScripts();
   const { data: searchResults = [], isLoading: searchLoading } = useSearchScriptsByTitle(searchQuery);
   const { data: filteredResults = [], isLoading: filterLoading } = useFilterScriptsByCategory(
     selectedCategory !== 'all' ? selectedCategory : ''
@@ -81,26 +81,37 @@ export default function HomePage() {
             Browse Scripts
           </h3>
           <p className="text-muted-foreground mt-1">
-            {displayScripts.length} {displayScripts.length === 1 ? 'script' : 'scripts'} available
+            {isLoading ? 'Loading...' : `${displayScripts.length} ${displayScripts.length === 1 ? 'script' : 'scripts'} available`}
           </p>
         </div>
-        {isAuthenticated && !showSubmitForm && (
-          <Button onClick={() => setShowSubmitForm(true)} className="bg-accent hover:bg-accent/90 gap-2">
-            <Plus className="h-4 w-4" />
-            Submit Script
-          </Button>
-        )}
-        {!isAuthenticated && (
-          <Button 
-            onClick={handleLoginPrompt} 
-            variant="outline" 
-            className="gap-2 border-accent/50 hover:bg-accent/10"
-            disabled={loginStatus === 'logging-in'}
+        <div className="flex gap-2">
+          {isAuthenticated && !showSubmitForm && (
+            <Button onClick={() => setShowSubmitForm(true)} className="bg-accent hover:bg-accent/90 gap-2">
+              <Plus className="h-4 w-4" />
+              Submit Script
+            </Button>
+          )}
+          {!isAuthenticated && (
+            <Button
+              onClick={handleLoginPrompt}
+              variant="outline"
+              className="gap-2 border-accent/50 hover:bg-accent/10"
+              disabled={loginStatus === 'logging-in'}
+            >
+              <LogIn className="h-4 w-4" />
+              {loginStatus === 'logging-in' ? 'Logging in...' : 'Login to Submit Scripts'}
+            </Button>
+          )}
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={() => refetchAll()}
+            disabled={allLoading}
+            title="Refresh scripts"
           >
-            <LogIn className="h-4 w-4" />
-            {loginStatus === 'logging-in' ? 'Logging in...' : 'Login to Submit Scripts'}
+            <RefreshCw className={`h-4 w-4 ${allLoading ? 'animate-spin' : ''}`} />
           </Button>
-        )}
+        </div>
       </div>
 
       {/* Search and Filter */}
@@ -115,12 +126,18 @@ export default function HomePage() {
       {/* Error State */}
       {allError && !isLoading && (
         <div className="text-center py-8 text-destructive">
-          <p>Error loading scripts. Please try refreshing the page.</p>
+          <p className="mb-4">Error loading scripts. Please try refreshing.</p>
+          <Button variant="outline" onClick={() => refetchAll()} className="gap-2">
+            <RefreshCw className="h-4 w-4" />
+            Retry
+          </Button>
         </div>
       )}
 
       {/* Scripts Grid */}
-      <ScriptGrid scripts={displayScripts} isLoading={isLoading} />
+      {!allError && (
+        <ScriptGrid scripts={displayScripts} isLoading={isLoading} />
+      )}
     </div>
   );
 }

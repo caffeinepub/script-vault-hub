@@ -1,7 +1,6 @@
 import Map "mo:core/Map";
 import Time "mo:core/Time";
 import Text "mo:core/Text";
-import Iter "mo:core/Iter";
 import Array "mo:core/Array";
 import Order "mo:core/Order";
 import Runtime "mo:core/Runtime";
@@ -62,7 +61,7 @@ actor {
     userProfiles.add(caller, profile);
   };
 
-  // Publicly accessible script read operations (no authentication required - accessible to all including guests)
+  // Publicly accessible script read operations (no authentication required)
   public query func getScript(id : Text) : async Script {
     switch (scripts.get(id)) {
       case (null) { Runtime.trap("Script not found") };
@@ -75,15 +74,21 @@ actor {
   };
 
   public query func searchScriptsByTitle(title : Text) : async [Script] {
-    scripts.values().toArray().filter(func(script) { script.title.contains(#text title) });
+    scripts.values().toArray().filter(
+      func(script) { script.title.contains(#text title) }
+    );
   };
 
   public query func filterScriptsByCategory(category : Text) : async [Script] {
-    scripts.values().toArray().filter(func(script) { script.category == category });
+    scripts.values().toArray().filter(
+      func(script) { script.category == category }
+    );
   };
 
   public query func getScriptsByAuthor(author : Principal) : async [Script] {
-    scripts.values().toArray().filter(func(script) { script.author == author });
+    scripts.values().toArray().filter(
+      func(script) { script.author == author }
+    );
   };
 
   // Get deleted scripts for the caller (requires user authentication)
@@ -91,13 +96,15 @@ actor {
     if (not (AccessControl.hasPermission(accessControlState, caller, #user))) {
       Runtime.trap("Unauthorized: Only users can view deleted scripts");
     };
-    
+
     if (AccessControl.isAdmin(accessControlState, caller)) {
       // Admins can see all deleted scripts
       deletedScripts.values().toArray();
     } else {
       // Regular users can only see their own deleted scripts
-      deletedScripts.values().toArray().filter(func(script) { script.author == caller });
+      deletedScripts.values().toArray().filter(
+        func(script) { script.author == caller }
+      );
     };
   };
 

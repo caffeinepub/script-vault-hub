@@ -2,11 +2,9 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-restore-the-script-listing-functionality-on-the-homepage-so-that-all-public-scripts-are-displayed-in-the-scriptgrid-component",
-      "featureTitle": "Restore the script listing functionality on the homepage so that all public scripts are displayed in the ScriptGrid component",
+      "featureId": "feature-ensure-the-home-page-correctly-fetches-and-displays-all-publicly-available-scripts-from-the-backend-showing-script-cards-with-title-description-category-author-and-creation-date",
+      "featureTitle": "Ensure the Home page correctly fetches and displays all publicly available scripts from the backend, showing script cards with title, description, category, author, and creation date.",
       "files": [
-        "frontend/src/components/ScriptGrid.tsx",
-        "frontend/src/hooks/useQueries.ts",
         "frontend/src/pages/HomePage.tsx"
       ],
       "components": [
@@ -23,8 +21,8 @@
       "confidence": "high"
     },
     {
-      "featureId": "feature-ensure-the-my-scripts-page-correctly-displays-scripts-owned-by-the-authenticated-user-with-edit-and-delete-functionality",
-      "featureTitle": "Ensure the My Scripts page correctly displays scripts owned by the authenticated user with edit and delete functionality",
+      "featureId": "feature-ensure-the-my-scripts-page-correctly-fetches-and-displays-all-scripts-belonging-to-the-authenticated-user-with-working-edit-and-delete-functionality",
+      "featureTitle": "Ensure the My Scripts page correctly fetches and displays all scripts belonging to the authenticated user, with working edit and delete functionality.",
       "files": [
         "frontend/src/hooks/useQueries.ts",
         "frontend/src/pages/MyScriptsPage.tsx"
@@ -43,8 +41,8 @@
       "confidence": "high"
     },
     {
-      "featureId": "feature-verify-the-script-detail-page-loads-and-displays-individual-script-content-with-syntax-highlighting-and-metadata",
-      "featureTitle": "Verify the script detail page loads and displays individual script content with syntax highlighting and metadata",
+      "featureId": "feature-audit-and-fix-the-react-query-hooks-in-usequeries-ts-to-ensure-the-script-fetching-queries-are-correctly-wired-to-the-backend-actor-and-returning-data-verify-that-query-keys-actor-method-calls-and-data-transformations-are-correct-so-scripts-are-not-lost-or-silently-failing",
+      "featureTitle": "Audit and fix the React Query hooks in useQueries.ts to ensure the script-fetching queries are correctly wired to the backend actor and returning data. Verify that query keys, actor method calls, and data transformations are correct so scripts are not lost or silently failing.",
       "files": [
         "frontend/src/hooks/useQueries.ts"
       ],

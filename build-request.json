@@ -1,91 +1,95 @@
 {
   "kind": "build_request",
-  "title": "Restore missing scripts functionality",
+  "title": "Restore user scripts display on My Scripts and Home pages",
   "projectName": "Rawly41 Store",
   "priority": "high",
   "requirements": [
     {
       "id": "REQ-1",
-      "text": "Restore the script listing functionality on the homepage so that all public scripts are displayed in the ScriptGrid component",
+      "text": "Ensure the Home page correctly fetches and displays all publicly available scripts from the backend, showing script cards with title, description, category, author, and creation date.",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-user-final"
+          "msg-8"
         ],
         "quotes": [
-          "Add my scripts back"
+          "Add back all of my scrips"
         ]
       },
       "acceptanceCriteria": [
-        "Scripts are visible on the homepage in a grid layout",
-        "ScriptCard components display for each script with title, description, category, and author",
-        "Empty state shows when no scripts exist"
+        "The Home page loads and renders all scripts returned by the backend's public read endpoint.",
+        "Each script card displays title, description, category, author, and creation date.",
+        "Loading skeletons are shown while scripts are being fetched.",
+        "An empty state message is shown if no scripts exist."
       ]
     },
     {
       "id": "REQ-2",
-      "text": "Ensure the My Scripts page correctly displays scripts owned by the authenticated user with edit and delete functionality",
+      "text": "Ensure the My Scripts page correctly fetches and displays all scripts belonging to the authenticated user, with working edit and delete functionality.",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-user-final"
+          "msg-8"
         ],
         "quotes": [
-          "Add my scripts back"
+          "Add back all of my scrips"
         ]
       },
       "acceptanceCriteria": [
-        "Authenticated users can view their own scripts on the My Scripts page",
-        "Edit and delete buttons are functional for user's own scripts",
-        "Page redirects unauthenticated users appropriately"
+        "Authenticated users can navigate to My Scripts and see all their submitted scripts.",
+        "Each script entry shows title, description, category, and creation date.",
+        "Edit dialog opens pre-populated with the script's existing data and saves changes successfully.",
+        "Delete confirmation dialog appears before removing a script, and the list updates after deletion."
       ]
     },
     {
       "id": "REQ-3",
-      "text": "Verify the script detail page loads and displays individual script content with syntax highlighting and metadata",
+      "text": "Audit and fix the React Query hooks in useQueries.ts to ensure the script-fetching queries are correctly wired to the backend actor and returning data. Verify that query keys, actor method calls, and data transformations are correct so scripts are not lost or silently failing.",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-user-final"
+          "msg-8"
         ],
         "quotes": [
-          "Add my scripts back"
+          "Add back all of my scrips"
         ]
       },
       "acceptanceCriteria": [
-        "Clicking a script card navigates to its detail page",
-        "Full script code is displayed with syntax highlighting",
-        "Script metadata (author, category, dates) is visible"
+        "useQueries.ts script-fetching hooks successfully call the correct backend actor methods.",
+        "Query results are properly mapped and returned to consuming components.",
+        "No silent errors or empty arrays are returned when scripts exist in the backend.",
+        "Console shows no unhandled query errors related to script fetching."
       ]
     },
     {
       "id": "REQ-4",
-      "text": "Ensure the backend script CRUD operations are functioning correctly and returning data to the frontend queries",
+      "text": "Verify the backend main.mo actor exposes correct public read endpoints for listing all scripts and user-specific scripts, ensuring stored scripts are accessible and not inadvertently filtered out or lost.",
       "target": "backend",
       "source": {
         "messageIds": [
-          "msg-user-final"
+          "msg-8"
         ],
         "quotes": [
-          "Add my scripts back"
+          "Add back all of my scrips"
         ]
       },
       "acceptanceCriteria": [
-        "getAllScripts returns all public scripts",
-        "getScriptsByOwner returns scripts filtered by owner principal",
-        "getScript returns individual script details by ID"
+        "Public endpoint returns all non-deleted scripts in the stable store.",
+        "User-specific endpoint returns all scripts owned by the calling principal.",
+        "Scripts previously submitted remain persisted and retrievable after canister upgrades.",
+        "No scripts are returned as empty arrays if data exists in stable storage."
       ]
     }
   ],
   "constraints": [
-    "Maintain existing authentication flow using Internet Identity",
-    "Preserve the single-actor backend architecture in backend/main.mo",
-    "Keep immutable frontend paths unchanged (hooks/useInternetIdentity.ts, hooks/useActor.ts, main.tsx, components/ui)"
+    "Do not alter authentication logic in useInternetIdentity.ts or useActor.ts.",
+    "Do not modify any files under frontend/src/components/ui or other immutable paths.",
+    "Preserve existing script data in stable storage — do not reset or clear backend state."
   ],
   "nonGoals": [
-    "Adding new script features beyond restoration",
-    "Changing the visual design or branding",
-    "Modifying the authentication system"
+    "Adding new script features or fields beyond what already exists.",
+    "Redesigning the UI layout or visual theme.",
+    "Implementing new authentication methods."
   ],
   "imageRequirements": {
     "required": [],

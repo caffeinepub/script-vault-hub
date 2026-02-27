@@ -42,7 +42,7 @@ export function useSaveCallerUserProfile() {
 
 // Script Queries
 export function useGetAllScripts() {
-  const { actor, isFetching } = useActor();
+  const { actor } = useActor();
 
   return useQuery<Script[]>({
     queryKey: ['scripts', 'all'],
@@ -51,14 +51,16 @@ export function useGetAllScripts() {
       const scripts = await actor.getAllScripts();
       return scripts;
     },
-    enabled: !!actor && !isFetching,
-    staleTime: 30000, // Consider data fresh for 30 seconds
+    enabled: !!actor,
+    staleTime: 0,
     retry: 3,
+    refetchOnMount: true,
+    refetchOnWindowFocus: true,
   });
 }
 
 export function useGetScript(id: string) {
-  const { actor, isFetching } = useActor();
+  const { actor } = useActor();
 
   return useQuery<Script>({
     queryKey: ['scripts', id],
@@ -66,13 +68,14 @@ export function useGetScript(id: string) {
       if (!actor) throw new Error('Actor not available');
       return actor.getScript(id);
     },
-    enabled: !!actor && !isFetching && !!id,
+    enabled: !!actor && !!id,
+    staleTime: 0,
     retry: 2,
   });
 }
 
 export function useSearchScriptsByTitle(title: string) {
-  const { actor, isFetching } = useActor();
+  const { actor } = useActor();
 
   return useQuery<Script[]>({
     queryKey: ['scripts', 'search', title],
@@ -81,13 +84,13 @@ export function useSearchScriptsByTitle(title: string) {
       if (!title.trim()) return [];
       return actor.searchScriptsByTitle(title);
     },
-    enabled: !!actor && !isFetching && !!title.trim(),
-    staleTime: 10000,
+    enabled: !!actor && !!title.trim(),
+    staleTime: 0,
   });
 }
 
 export function useFilterScriptsByCategory(category: string) {
-  const { actor, isFetching } = useActor();
+  const { actor } = useActor();
 
   return useQuery<Script[]>({
     queryKey: ['scripts', 'category', category],
@@ -96,13 +99,13 @@ export function useFilterScriptsByCategory(category: string) {
       if (!category) return [];
       return actor.filterScriptsByCategory(category);
     },
-    enabled: !!actor && !isFetching && !!category,
-    staleTime: 10000,
+    enabled: !!actor && !!category,
+    staleTime: 0,
   });
 }
 
 export function useGetScriptsByAuthor(author: Principal | undefined) {
-  const { actor, isFetching } = useActor();
+  const { actor } = useActor();
 
   return useQuery<Script[]>({
     queryKey: ['scripts', 'author', author?.toString()],
@@ -111,8 +114,10 @@ export function useGetScriptsByAuthor(author: Principal | undefined) {
       if (!author) throw new Error('Author principal not available');
       return actor.getScriptsByAuthor(author);
     },
-    enabled: !!actor && !isFetching && !!author,
+    enabled: !!actor && !!author,
+    staleTime: 0,
     retry: 2,
+    refetchOnMount: true,
   });
 }
 
